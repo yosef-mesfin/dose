@@ -56,11 +56,15 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {icon && iconPosition === IconPosition.BEFORE && (
-        <span className={clsx(label && 'mr-2')}>{icon}</span>
+        <span className={clsx(label && 'mr-2')} data-testid="icon">
+          {icon}
+        </span>
       )}
       {label || children}
       {icon && iconPosition === IconPosition.AFTER && (
-        <span className={clsx(label && 'ml-2')}>{icon}</span>
+        <span className={clsx(label && 'ml-2')} data-testid="icon">
+          {icon}
+        </span>
       )}
     </button>
   );
