@@ -1,0 +1,42 @@
+import { Meta, Title, IconGallery, IconItem } from '@storybook/blocks';
+import Icons from './Icons';
+import { FaPlus } from 'react-icons/fa';
+import { GrNotes } from "react-icons/gr";
+import { MdOutlineArchive, MdOutlineSettings } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { RiOpenaiFill } from "react-icons/ri";
+import { FcGoogle } from "react-icons/fc";
+ 
+<Meta title="App/Iconography" />
+ 
+# Iconography
+
+This document showcases the available icons in the application and how to use them.
+ 
+<IconGallery>
+  <IconItem name="plus">
+    <Icons icon={FaPlus} className='text-blue-500' name="plus" />
+  </IconItem>
+  <IconItem name="Note">
+    <Icons icon={GrNotes} className='text-blue-500' name="note" />
+  </IconItem>
+  <IconItem name="Archive">
+    <Icons icon={MdOutlineArchive} className='text-blue-500' name="archive" />
+  </IconItem>
+  <IconItem name="Trash">
+    <Icons icon={FaRegTrashAlt} className='text-blue-500' name="trash" />
+  </IconItem>
+  <IconItem name="Settings">
+    <Icons icon={MdOutlineSettings} className='text-blue-500' name="settings" />
+  </IconItem>
+  <IconItem name="Hamburger">
+    <Icons icon={RxHamburgerMenu} className='text-blue-500' name="hamburger" />
+  </IconItem>
+  <IconItem name="OpenAi">
+    <Icons icon={RiOpenaiFill} className='text-blue-500' name="openai" />
+  </IconItem>
+  <IconItem name='Google'>
+    <Icons icon={FcGoogle}  name='google' />
+  </IconItem>
+</IconGallery>
