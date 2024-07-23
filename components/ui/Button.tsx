@@ -20,17 +20,15 @@ const Button: React.FC<ButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseStyles =
-    'px-4 flex items-center py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseStyles = 'flex items-center py-2 rounded';
   const variantStyles = {
     [ButtonVariants.SOLID]:
       'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
     [ButtonVariants.OUTLINE]:
       'border border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-blue-500',
-    [ButtonVariants.GHOST]:
-      'text-blue-500 hover:bg-blue-50 focus:ring-blue-500',
+    [ButtonVariants.GHOST]: 'text-blue-500 focus:ring-blue-500',
     [ButtonVariants.ICON]:
-      'rounded-full bg-transparent flex item-center justify-center text-white border border-pink-500 hover:bg-pink-500',
+      'relative bg-transparent flex item-center justify-center',
   };
 
   const sizeStyles = {
