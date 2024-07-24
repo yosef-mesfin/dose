@@ -24,18 +24,17 @@ const Button: React.FC<ButtonProps> = ({
   const variantStyles = {
     [ButtonVariants.SOLID]:
       'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
-    [ButtonVariants.OUTLINE]:
-      'border border-blue-500 text-blue-500 hover:bg-blue-50 focus:ring-blue-500',
-    [ButtonVariants.GHOST]: 'text-blue-500 focus:ring-blue-500',
+    [ButtonVariants.OUTLINE]: 'border border-blue-500 text-blue-500',
+    [ButtonVariants.GHOST]: 'text-blue-500',
     [ButtonVariants.ICON]:
       'relative bg-transparent flex item-center justify-center',
   };
 
   const sizeStyles = {
-    [ButtonSizes.DEFAULT]: 'h-10 px-4 py-2 text-base',
+    [ButtonSizes.DEFAULT]: 'h-10 py-2 text-base',
     [ButtonSizes.SMALL]: 'h-8 px-3 py-1 text-sm',
     [ButtonSizes.LARGE]: 'h-12 px-5 py-3 text-lg',
-    [ButtonSizes.ICON]: 'h-10 w-10',
+    [ButtonSizes.ICON]: 'h-8 w-8',
   };
 
   const disabledStyles = 'opacity-50 cursor-not-allowed';

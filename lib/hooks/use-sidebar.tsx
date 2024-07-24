@@ -30,7 +30,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   children,
 }) => {
   const [isSidebarOpen, setSidebarOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const value = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -38,7 +38,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     if (value) {
       setSidebarOpen(JSON.parse(value));
     }
-    setIsLoading(false);
+    setLoading(false);
   }, []);
 
   const toggleSidebar = () => {
@@ -48,10 +48,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
       return newState;
     });
   };
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <SidebarContext.Provider
