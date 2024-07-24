@@ -75,3 +75,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted));
+    border-radius: var(--radius);
+    border: 3px solid hsl(var(--background));
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted));
+    border: 3px solid hsl(var(--background));
+  }
+}
