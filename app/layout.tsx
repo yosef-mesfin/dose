@@ -37,7 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="relative min-h-screen flex">{children}</main>
+          <main className="relative h-screen flex">{children}</main>
         </Providers>
       </body>
     </html>

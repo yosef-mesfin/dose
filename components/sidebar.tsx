@@ -22,12 +22,11 @@ const Loading = () => {
 
 export const Sidebar: React.FC<SidebarProps> = ({ children, className }) => {
   const { isSidebarOpen, isLoading } = useSidebar();
-  console.log('🚀 ~ isLoading:', isLoading);
 
   return (
     <div
       data-state={isSidebarOpen && !isLoading ? 'open' : 'closed'}
-      className={cn(className, 'h-[100vh] flex-col dark:bg-zinc-950')}
+      className={cn(className, 'h-full flex-col dark:bg-zinc-950')}
     >
       {isLoading ? <Loading data-testid="loading" /> : children}
     </div>

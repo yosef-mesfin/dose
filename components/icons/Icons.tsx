@@ -11,7 +11,7 @@ type IconProps = {
 const Icons: React.FC<IconProps> = ({ icon: Icon, className, name }) => {
   return (
     <div className="flex items-center justify-center w-10 h-10 hover:bg-primary/10 hover:rounded-full transition duration-200 ease-in-out">
-      <Icon className={cn(className, 'text-primary')} name={name} />
+      <Icon className={cn(className)} name={name} />
     </div>
   );
 };

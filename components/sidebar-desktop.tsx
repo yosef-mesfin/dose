@@ -24,12 +24,12 @@ const footerMenus = [
 ];
 
 export const SidebarDesktop: React.FC = () => {
-  const { isSidebarOpen, isLoading } = useSidebar();
+  const { isSidebarOpen } = useSidebar();
 
   return (
     <Sidebar
       data-testid="sidebar"
-      className={`border-r bg-muted duration-300 ease-in-out px-2 ${
+      className={`max-h-[100vh] border-r bg-muted duration-300 ease-in-out px-2 ${
         isSidebarOpen ? 'lg:w-[250px] xl:w-[300px]' : 'lg:w-[60px] xl:w-[60px]'
       } data-[state=open]:translate-x-0 lg:flex `}
     >

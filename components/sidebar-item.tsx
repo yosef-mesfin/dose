@@ -32,7 +32,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
     >
       <Icons
         icon={Icon}
-        className={`${isSidebarOpen ? 'size-6' : 'size-7'} text-lg ${isActive ? 'text-primary' : 'text-primary/80'}`}
+        className={`${isSidebarOpen ? 'size-6' : 'size-7'} text-lg ${isActive ? 'text-primary/90' : 'text-primary/60'}`}
       />
       {isSidebarOpen && (
         <span className={isActive ? 'font-semibold' : ''}>{name}</span>
