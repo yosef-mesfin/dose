@@ -1,5 +1,6 @@
 'use client';
 import { CreateNote } from '@/components/create-note';
+import NotesSkeleton from '@/components/notes-skeleton';
 import { Search } from '@/components/search';
 import { SidebarDesktop } from '@/components/sidebar-desktop';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
@@ -21,7 +22,9 @@ export default function Home() {
             <div className="h-auto mt-3 p-2 flex items-center justify-center">
               <CreateNote />
             </div>
-            <div className="bg-gray-500 flex-1">Notes</div>
+            <div className="flex-1 mt-4">
+              <NotesSkeleton />
+            </div>
           </div>
         </div>
       </div>
