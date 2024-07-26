@@ -9,11 +9,13 @@ import { FaRegFileImage } from 'react-icons/fa';
 import { TextArea } from './ui/textfield';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { AiOutlineMore } from 'react-icons/ai';
+import { SummaryModal } from './summary-modal';
 
 interface CreateNoteProps {}
 
 const CreateNote: React.FC<CreateNoteProps> = () => {
   const [isFocused, setIsFocused] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -32,6 +34,14 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
     setTitle('');
     setText('');
     setIsFocused(false);
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -80,7 +90,11 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
           />
           <div className="flex bg-primary/10 justify-between items-center mt-2 px-3 py-1">
             <div className="flex space-x-1 items-center">
-              <Icons icon={RiOpenaiFill} className="size-7 text-[#9834aa]" />
+              <Icons
+                icon={RiOpenaiFill}
+                className="size-7 text-[#9834aa]"
+                onClick={handleOpenModal}
+              />
               <span className="text-sm text-primary/50">Assistant</span>
             </div>
             <div className="flex flex-row">
@@ -90,7 +104,7 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
               >
                 <Icons
                   icon={FaRegFileImage}
-                  className="size-5 text-primary/80"
+                  className="size-5 text-primary/50"
                 />
               </Button>
               <Button
@@ -110,6 +124,7 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
           </div>
         </div>
       )}
+      <SummaryModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 };
