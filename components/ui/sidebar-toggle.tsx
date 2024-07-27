@@ -1,9 +1,8 @@
 'use client';
 
 import { useSidebar } from '@/lib/hooks/use-sidebar';
-import { Icons } from '../icons';
 import Button from './Button';
-import { ButtonVariants } from '@/types/button';
+import { ButtonVariants } from '@/lib/types/button';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 export const SidebarToggle = () => {
@@ -11,11 +10,10 @@ export const SidebarToggle = () => {
 
   return (
     <Button
-      className={`${isSidebarOpen ? 'ml-2' : 'ml-0'} flex items-center justify-center m-0`}
+      className={`flex items-center h-12 w-12 ${!isSidebarOpen && 'h-11 w-11'} justify-center p-1 hover:bg-primary/10 hover:rounded-full transition duration-200 ease-in-out`}
       variant={ButtonVariants.ICON}
       onClick={() => toggleSidebar()}
-    >
-      <Icons icon={RxHamburgerMenu} className="size-6" />
-    </Button>
+      icon={<RxHamburgerMenu className="size-6" />}
+    />
   );
 };

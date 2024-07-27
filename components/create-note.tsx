@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import Button from './ui/Button';
-import { ButtonVariants } from '@/types/button';
+import { ButtonVariants } from '@/lib/types/button';
 import { Icons } from './icons';
 import { FaRegFileImage } from 'react-icons/fa';
 import { TextArea } from './ui/textfield';
@@ -58,16 +58,17 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
       )}
     >
       {!isFocused && (
-        <div className="flex items-center p-2 justify-between">
+        <div className="flex items-center p-2 gap-2 ">
           <Input
             type="text"
             placeholder="Take a note..."
-            className="w-full bg-transparent"
+            className="bg-transparent"
             onFocus={handleFocus}
           />
-          <Button variant={ButtonVariants.ICON}>
-            <Icons icon={FaRegFileImage} className="size-6 text-primary/50" />
-          </Button>
+          <Button
+            variant={ButtonVariants.ICON}
+            icon={<FaRegFileImage className="size-6 text-primary/50" />}
+          />
         </div>
       )}
       {isFocused && (

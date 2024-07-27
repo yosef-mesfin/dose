@@ -16,11 +16,8 @@ const Icons: React.FC<IconProps> = ({
   onClick,
 }) => {
   return (
-    <div
-      className="flex items-center justify-center w-10 h-10 hover:bg-primary/10 hover:rounded-full transition duration-200 ease-in-out"
-      onClick={onClick}
-    >
-      <Icon className={cn(className)} name={name} />
+    <div className="flex items-center justify-center w-8 h-8" onClick={onClick}>
+      <Icon className={cn(className, 'size-6')} name={name} />
     </div>
   );
 };

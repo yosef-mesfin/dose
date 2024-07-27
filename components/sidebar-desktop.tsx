@@ -35,9 +35,13 @@ export const SidebarDesktop: React.FC = () => {
     >
       <div className="h-full flex flex-col justify-between">
         <div>
-          <div className="h-16 border-b gap-4 flex flex-row items-center">
+          <div
+            className={`h-16 border-b gap-4 ${!isSidebarOpen && 'justify-center'} flex flex-row items-center`}
+          >
             <SidebarToggle />
-            {isSidebarOpen && <h1 className="text-2xl italic">Dose</h1>}
+            {isSidebarOpen && (
+              <h1 className="text-2xl italic text-[#C085CA]">Dose</h1>
+            )}
           </div>
           <div className="flex flex-col gap-2 mt-4">
             {menus.map((menu) => (
