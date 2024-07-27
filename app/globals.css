@@ -100,3 +100,24 @@
     border: 3px solid hsl(var(--background));
   }
 }
+
+@layer utilities {
+  /* Act as a border */
+  .card-wrapper {
+    @apply relative bg-gradient-to-b from-zinc-800 to-zinc-900 rounded-2xl overflow-hidden;
+  }
+  /* Gradient */
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(152, 52, 170, .5) 0deg,
+      rgba(192, 133, 202, .5) 0deg,
+      transparent 80deg
+    );
+    @apply absolute top-[-25%] left-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+  }
+
+  /* Body */
+  .card-content {
+    @apply absolute bg-gradient-to-b from-slate-900 to-zinc-950 rounded-2xl;
+  }
+}
