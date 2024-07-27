@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonSizes, ButtonVariants, IconPosition } from '@/types/button';
+import { ButtonSizes, ButtonVariants, IconPosition } from '@/lib/types/button';
 import Button from './Button';
 import { FaPlus } from 'react-icons/fa';
 import { action } from '@storybook/addon-actions';

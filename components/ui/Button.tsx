@@ -1,31 +1,29 @@
-// components/Button.tsx
-import React from 'react';
-import clsx from 'clsx';
 import {
   ButtonVariants,
   ButtonProps,
   ButtonSizes,
   IconPosition,
-} from '../../types/button';
+} from '../../lib/types/button';
+import { cn } from '@/lib/utils';
 
 const Button: React.FC<ButtonProps> = ({
   label,
   variant = ButtonVariants.SOLID,
   size = ButtonSizes.DEFAULT,
   icon,
-  iconPosition = 'before',
+  iconPosition,
   onClick,
   disabled,
   className,
   children,
   ...props
 }) => {
-  const baseStyles = 'flex items-center py-2 rounded';
+  const baseStyles = 'flex items-center p-1 rounded-md';
   const variantStyles = {
     [ButtonVariants.SOLID]:
       'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500',
-    [ButtonVariants.OUTLINE]: 'border border-blue-500 text-blue-500',
-    [ButtonVariants.GHOST]: 'text-blue-500',
+    [ButtonVariants.OUTLINE]: 'border border-blue-500',
+    [ButtonVariants.GHOST]: 'text-primary',
     [ButtonVariants.ICON]:
       'relative bg-transparent flex item-center justify-center',
   };
@@ -41,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={clsx(
+      className={cn(
         baseStyles,
         variantStyles[variant],
         sizeStyles[size],
@@ -53,13 +51,13 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {icon && iconPosition === IconPosition.BEFORE && (
-        <span className={clsx(label && 'mr-2')} data-testid="icon">
+        <span className={cn(label && 'mr-2')} data-testid="icon">
           {icon}
         </span>
       )}
-      {label || children}
+      {variant !== ButtonVariants.ICON ? label || children : icon}
       {icon && iconPosition === IconPosition.AFTER && (
-        <span className={clsx(label && 'ml-2')} data-testid="icon">
+        <span className={cn(label && 'ml-2')} data-testid="icon">
           {icon}
         </span>
       )}

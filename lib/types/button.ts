@@ -24,6 +24,6 @@ export type ButtonProps = {
   size?: ButtonSizes;
   variant?: ButtonVariants;
   icon?: React.ReactNode;
-  iconPosition?: 'before' | 'after';
+  iconPosition?: IconPosition;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;

@@ -2,7 +2,11 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Button from './Button';
-import { ButtonVariants, ButtonSizes, IconPosition } from '../../types/button';
+import {
+  ButtonVariants,
+  ButtonSizes,
+  IconPosition,
+} from '../../lib/types/button';
 import { FaPlus } from 'react-icons/fa';
 
 describe('Button Component', () => {
