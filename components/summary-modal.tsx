@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Dialog } from './ui/dialog';
 import { Input } from './ui/input';
 import Button from './ui/Button';
-import { ButtonSizes, ButtonVariants } from '@/lib/types/button';
+import { ButtonVariants } from '@/lib/types/button';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { Icons } from './icons';
 import { IoMdSend } from 'react-icons/io';
 import { IoMdAttach } from 'react-icons/io';
 import { Summary } from './summary';
 import Image from 'next/image';
-
+import ShinyButton from './ui/ShinyButton';
 interface SummaryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -99,13 +99,13 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
               )}
             </div>
             {!prompt && filename && (
-              <Button
-                variant={ButtonVariants.OUTLINE}
-                className="border-[#9843AA] hover:bg-zinc-950 px-3 rounded-3xl"
+              <ShinyButton
+                // variant={ButtonVariants.SHINY}
+                // className="border-[#9843AA] hover:bg-zinc-950 px-3 rounded-3xl"
                 onClick={handleGenerate}
               >
                 summarize
-              </Button>
+              </ShinyButton>
             )}
           </div>
         </div>

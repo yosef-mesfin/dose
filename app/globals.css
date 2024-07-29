@@ -34,6 +34,10 @@
     --ring: 240 10% 3.9%;
  
     --radius: 0.5rem;
+
+    --radial-gradient-background: 152, 52, 170;
+    --solid-color-background: 0, 0%, 98%;
+    --overlay-color: 152, 52, 170;
   }
  
   .dark {
@@ -64,6 +68,11 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+
+    --radial-gradient-background: 152, 52, 170;
+    --solid-color-background: 0, 0%, 98%;
+    --overlay-color: 152, 52, 170;
+
   }
 }
  
@@ -108,12 +117,13 @@
   }
   /* Gradient */
   .card-wrapper::before {
+
     background: conic-gradient(
       rgba(152, 52, 170, .5) 0deg,
       rgba(192, 133, 202, .5) 0deg,
       transparent 80deg
     );
-    @apply absolute top-[-25%] left-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+    @apply absolute top-[-50%] left-[-25%] h-[200%] w-[150%] animate-border-spin content-[''];
   }
 
   /* Body */
@@ -121,3 +131,42 @@
     @apply absolute bg-gradient-to-b from-slate-900 to-zinc-950 rounded-2xl;
   }
 }
+
+.radial-gradient {
+  background: radial-gradient(
+    circle at 50% 0%,
+    /* rgba(var(--radial-gradient-background), 0.05) 0%, */
+    rgba(250, 250, 250, .05) 0%,
+    transparent 100%
+  ), rgba(15, 15, 15, 1);
+  /* rgba(var(--solid-color-background), 1); */
+}
+.linear-mask {
+  mask-image: linear-gradient(
+    -75deg,
+    rgba(152, 52, 170, 1) calc(var(--x) + 20%),
+    transparent calc(var(--x) + 30%),
+    rgba(152, 52, 170, 1) calc(var(--x) + 100%)
+  );
+  -webkit-mask-image: linear-gradient(
+    -75deg,
+    rgba(152, 52, 170, 1) calc(var(--x) + 20%),
+    transparent calc(var(--x) + 30%),
+    rgba(152, 52, 170, 1) calc(var(--x) + 100%)
+  );
+}
+
+.linear-overlay {
+  background-image: linear-gradient(
+    -75deg,
+    rgba(152, 52, 170, 0.1) calc(var(--x) + 20%),
+    rgba(152, 52, 170, 1) calc(var(--x) + 25%),
+    rgba(152, 52, 170, .1) calc(var(--x) + 100%)
+  );
+  mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+
