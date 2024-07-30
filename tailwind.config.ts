@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import type { Config } from 'tailwindcss';
+import { generateStarPositions } from './lib/utils';
 
 const config: Config = {
   content: [
@@ -75,11 +76,29 @@ const config: Config = {
             transform: 'rotate(-360deg)',
           },
         },
+        'anim-stars': {
+          from: {
+            transform: 'translateY(0)',
+          },
+          to: {
+            transform: 'translateY(-2000px)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'border-spin': 'border-spin 8s linear infinite',
+        'anim-stars': 'anim-stars 50s linear infinite',
+        'anim-stars2': 'anim-stars 100s linear infinite',
+        'anim-stars3': 'anim-stars 150s linear infinite',
+        'anim-stars4': 'anim-stars 600s linear infinite',
+      },
+      boxShadow: {
+        stars: generateStarPositions(700, '#ce93d8'),
+        stars2: generateStarPositions(200, '#ce93d8'),
+        stars3: generateStarPositions(100, '#ce93d8'),
+        stars4: generateStarPositions(700, '#ce93d8'),
       },
     },
   },

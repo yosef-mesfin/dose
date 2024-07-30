@@ -169,4 +169,41 @@
   -webkit-mask-composite: xor;
 }
 
+/* Stary background */
 
+@layer utilities {
+  .bg-animation {
+    @apply fixed inset-0 w-[100vw] h-[100vh] overflow-hidden;
+  }
+
+  #stars, #stars::after {
+    @apply w-px h-px bg-transparent shadow-stars animate-anim-stars;
+  }
+  #stars::after {
+    @apply absolute content-[''] top-[2000px];
+  }
+
+  #stars2, #stars2::after {
+    @apply w-[2px] h-[2px] bg-transparent shadow-stars2 animate-anim-stars2;
+  }
+
+  #stars2::after {
+    @apply absolute content-[''] top-[2000px];
+  }
+
+  #stars3, #stars3::after {
+    @apply w-[3px] h-[3px] bg-transparent shadow-stars3 animate-anim-stars3;
+  }
+
+  #stars3::after {
+    @apply absolute content-[''] top-[2000px];
+  }
+
+  #stars4, #stars4::after {
+    @apply w-[1px] h-[1px] bg-transparent shadow-stars4 animate-anim-stars4;
+  }
+
+  #stars4::after {
+    @apply absolute content-[''] top-[2000px];
+  }
+}
