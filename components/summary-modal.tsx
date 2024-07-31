@@ -70,7 +70,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
     <Dialog
       isOpen={isOpen}
       onClose={onClose}
-      className="flex flex-col justify-center border border-[#C085CA] bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
+      className="flex flex-col justify-center border border-[#C085CA]/40 bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
     >
       <div className="w-full px-2 pt-2">
         <Icons

@@ -1,11 +1,13 @@
 'use client';
-import { CreateNote } from '@/components/create-note';
-import NotesSkeleton from '@/components/notes-skeleton';
-import { Search } from '@/components/search';
 import { SidebarDesktop } from '@/components/sidebar-desktop';
+import { Search } from '@/components/search';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
 
-export default function Home() {
+interface INoteLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function NoteLayout({ children }: INoteLayoutProps) {
   const { isSidebarOpen } = useSidebar();
   return (
     <main className="relative flex w-full">
@@ -18,14 +20,7 @@ export default function Home() {
               {!isSidebarOpen && <h1 className="text-2xl italic">Dose</h1>}
             </div>
           </div>
-          <div className="flex-1 flex flex-col overflow-y-scroll p-2">
-            <div className="h-auto mt-3 p-2 flex items-center justify-center">
-              <CreateNote />
-            </div>
-            <div className="flex-1 mt-4">
-              <NotesSkeleton />
-            </div>
-          </div>
+          {children}
         </div>
       </div>
     </main>

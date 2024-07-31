@@ -40,7 +40,7 @@ export default function ShinyButton({
       className="px-6 py-2 rounded-md relative radial-gradient"
       {...rest}
     >
-      <span className="block h-full w-full tracking-wide text-[#9834AA] relative linear-mask">
+      <span className="block h-full w-full tracking-wide text-[#C085CA] relative linear-mask">
         {children}
       </span>
       <span className="block absolute inset-0 rounded-md p-px linear-overlay" />

@@ -13,7 +13,7 @@ import { useSidebar } from '@/lib/hooks/use-sidebar';
 import { SidebarToggle } from './ui/sidebar-toggle';
 
 const menus = [
-  { name: 'Notes', icon: GrNotes, href: '/' },
+  { name: 'Notes', icon: GrNotes, href: '/notes' },
   { name: 'Archive', icon: MdOutlineArchive, href: '/archive' },
   { name: 'Trash', icon: FaRegTrashAlt, href: '/trash' },
 ];
