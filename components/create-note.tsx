@@ -90,7 +90,10 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
             className="w-full bg-transparent min-h-12 border-none outline-none overflow-y-auto"
           />
           <div className="flex bg-primary/10 justify-between items-center mt-2 px-3 py-1">
-            <div className="flex space-x-1 items-center">
+            <div
+              className="flex space-x-1 items-center cursor-pointer"
+              onClick={handleOpenModal}
+            >
               <Icons
                 icon={RiOpenaiFill}
                 className="size-7 text-[#9834aa]"

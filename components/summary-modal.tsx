@@ -99,13 +99,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
               )}
             </div>
             {!prompt && filename && (
-              <ShinyButton
-                // variant={ButtonVariants.SHINY}
-                // className="border-[#9843AA] hover:bg-zinc-950 px-3 rounded-3xl"
-                onClick={handleGenerate}
-              >
-                summarize
-              </ShinyButton>
+              <ShinyButton onClick={handleGenerate}>summarize</ShinyButton>
             )}
           </div>
         </div>

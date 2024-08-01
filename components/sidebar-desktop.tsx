@@ -11,6 +11,7 @@ import {
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
 import { SidebarToggle } from './ui/sidebar-toggle';
+import Link from 'next/link';
 
 const menus = [
   { name: 'Notes', icon: GrNotes, href: '/notes' },
@@ -40,7 +41,9 @@ export const SidebarDesktop: React.FC = () => {
           >
             <SidebarToggle />
             {isSidebarOpen && (
-              <h1 className="text-2xl italic text-[#C085CA]">Dose</h1>
+              <Link href="/">
+                <h1 className="text-2xl italic text-[#C085CA]">Dose</h1>
+              </Link>
             )}
           </div>
           <div className="flex flex-col gap-2 mt-4">

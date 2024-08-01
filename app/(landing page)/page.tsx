@@ -11,9 +11,9 @@ export default function Landing() {
         bg-gradient-to-r"
         >
           Welcome to
-          <span className="ml-1 bg-zinc-950 p-2 rounded-lg flex italic text-[#C085CA]">
+          <span className="ml-1 bg-zinc-950 p-2 rounded-lg flex text-[#C085CA]">
             Dose.
-            <IoPencil />
+            <IoPencil className="text-[#bd9924]" />
           </span>
         </h1>
       </div>
