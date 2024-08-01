@@ -4,7 +4,7 @@ export default function LandingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <main className="relative w-full h-screen overflow-hidden">
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         {children}
       </div>
@@ -14,6 +14,6 @@ export default function LandingLayout({
         <div id="stars3"></div>
         <div id="stars4"></div>
       </div>
-    </div>
+    </main>
   );
 }
