@@ -8,7 +8,7 @@ export default function LandingLayout({
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         {children}
       </div>
-      <div className="overflow-hidden bg-animation -z-[10]">
+      <div className="overflow-hidden bg-animation -z-[10] opacity-80">
         <div id="stars"></div>
         <div id="stars2"></div>
         <div id="stars3"></div>
