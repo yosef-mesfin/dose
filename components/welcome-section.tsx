@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useScroll, useTransform, motion } from 'framer-motion';
 import ShinyButton from './ui/ShinyButton';
 import { IoPencil } from 'react-icons/io5';
+import Link from 'next/link';
 
 interface IWelcomeSectionProps {
   conainerRef: React.RefObject<HTMLDivElement>;
@@ -20,12 +21,12 @@ export const WelcomeSection: React.FC<IWelcomeSectionProps> = ({
 
   const welcomeOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const handleGetStarted = () => {
-    conainerRef.current?.scrollTo({
-      top: conainerRef.current.clientHeight,
-      behavior: 'smooth',
-    });
-  };
+  // const handleGetStarted = () => {
+  //   conainerRef.current?.scrollTo({
+  //     top: conainerRef.current.clientHeight,
+  //     behavior: 'smooth',
+  //   });
+  // };
 
   return (
     <motion.section
@@ -50,9 +51,9 @@ export const WelcomeSection: React.FC<IWelcomeSectionProps> = ({
           Distraction-free note-taking app powered by AI for smart and
           productive note-taking.
         </p>
-        <ShinyButton style={{ marginTop: '1rem' }} onClick={handleGetStarted}>
-          Get Started
-        </ShinyButton>
+        <Link href="/signup">
+          <ShinyButton style={{ marginTop: '1rem' }}>Get Started</ShinyButton>
+        </Link>
       </div>
     </motion.section>
   );
