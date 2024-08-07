@@ -1,8 +1,17 @@
-export default function LandingLayout({
+import { auth } from '@/lib/auth';
+import { Session } from '@/lib/types/types';
+import { redirect } from 'next/navigation';
+
+export default async function LandingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = (await auth()) as Session;
+  if (session) {
+    redirect('/notes');
+  }
+
   return (
     <main className="relative w-full h-screen overflow-hidden">
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
