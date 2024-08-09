@@ -1,23 +1,7 @@
-import React from 'react';
-
-export enum ButtonVariants {
-  SOLID = 'solid',
-  OUTLINE = 'outline',
-  GHOST = 'ghost',
-  ICON = 'icon',
-}
-
-export enum ButtonSizes {
-  DEFAULT = 'default',
-  SMALL = 'sm',
-  LARGE = 'lg',
-  ICON = 'icon',
-}
-
-export enum IconPosition {
-  BEFORE = 'before',
-  AFTER = 'after',
-}
+/*eslint-disable */
+export type ButtonVariants = 'solid' | 'outline' | 'ghost' | ('icon' & {});
+export type ButtonSizes = 'default' | 'sm' | 'lg' | ('icon' & {});
+export type IconPosition = 'before' | 'after';
 
 export type ButtonProps = {
   label?: string;

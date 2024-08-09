@@ -4,7 +4,6 @@ import { auth, signOut } from '@/lib/auth';
 import { Session } from '@/lib/types/types';
 import { redirect } from 'next/navigation';
 import Button from '@/components/ui/Button';
-import { ButtonSizes, ButtonVariants, IconPosition } from '@/lib/types/button';
 import { AiOutlineLogout } from 'react-icons/ai';
 
 interface INoteLayoutProps {
@@ -23,7 +22,7 @@ export default async function NoteLayout({ children }: INoteLayoutProps) {
       <div className="flex flex-row w-full">
         <SidebarDesktop />
         <div className="flex-1 flex flex-col dark:bg-zinc-950">
-          <div className="p-3 flex items-center justify-between">
+          <div className="py-3 px-2 flex items-center justify-between">
             <Search />
             <form
               action={async () => {
@@ -31,10 +30,11 @@ export default async function NoteLayout({ children }: INoteLayoutProps) {
                 await signOut();
                 redirect('/login');
               }}
+              className="mr-3"
             >
               <Button
-                size={ButtonSizes.LARGE}
-                iconPosition={IconPosition.AFTER}
+                size="lg"
+                iconPosition="after"
                 icon={<AiOutlineLogout className="size-8 text-destructive" />}
                 label="Log Out"
                 className="bg-primary/10 border hover:bg-primary/20"

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dialog } from './ui/dialog';
 import { Input } from './ui/input';
 import Button from './ui/Button';
-import { ButtonVariants } from '@/lib/types/button';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { Icons } from './icons';
 import { IoMdSend } from 'react-icons/io';
@@ -107,7 +106,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
           {loading && (
             <div className="m-auto text-[#9843AA] animate-spin">
               <Button
-                variant={ButtonVariants.ICON}
+                variant="icon"
                 icon={<RiOpenaiFill className="size-12" />}
               />
             </div>
@@ -146,7 +145,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="flex items-center w-full space-x-2 bg-primary/10 px-4 h-14 rounded-b-xl">
           <Button
-            variant={ButtonVariants.ICON}
+            variant="icon"
             icon={
               <IoMdAttach className="ml-3 size-7 text-primary/50 hover:text-primary/80" />
             }
@@ -168,7 +167,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
             className="flex-grow outline-none border-none h-12"
           />
           <Button
-            variant={ButtonVariants.ICON}
+            variant="icon"
             onClick={handleGenerate}
             className="pr-4"
             icon={

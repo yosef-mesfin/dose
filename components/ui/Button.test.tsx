@@ -2,11 +2,6 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Button from './Button';
-import {
-  ButtonVariants,
-  ButtonSizes,
-  IconPosition,
-} from '../../lib/types/button';
 import { FaPlus } from 'react-icons/fa';
 
 describe('Button Component', () => {
@@ -21,7 +16,7 @@ describe('Button Component', () => {
   });
 
   it('Renders the button with custom variants', () => {
-    render(<Button label="Solid Button" variant={ButtonVariants.SOLID} />);
+    render(<Button label="Solid Button" variant="solid" />);
 
     const buttonElement = screen.getByRole('button', { name: /Solid Button/i });
 
@@ -30,7 +25,7 @@ describe('Button Component', () => {
   });
 
   it('Renders the button with custom sizes', () => {
-    render(<Button label="Small Button" size={ButtonSizes.SMALL} />);
+    render(<Button label="Small Button" size="sm" />);
 
     const buttonElement = screen.getByRole('button', { name: /Small Button/i });
 
@@ -42,9 +37,9 @@ describe('Button Component', () => {
     render(
       <Button
         label="Button With Icon"
-        variant={ButtonVariants.SOLID}
+        variant="solid"
         icon={<FaPlus />}
-        iconPosition={IconPosition.BEFORE}
+        iconPosition="before"
       />
     );
 
@@ -62,9 +57,9 @@ describe('Button Component', () => {
     render(
       <Button
         label="Button With Icon"
-        variant={ButtonVariants.SOLID}
+        variant="solid"
         icon={<FaPlus />}
-        iconPosition={IconPosition.AFTER}
+        iconPosition="after"
       />
     );
 

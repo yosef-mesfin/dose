@@ -1,5 +1,4 @@
 import Button from '@/components/ui/Button';
-import { ButtonSizes, IconPosition } from '@/lib/types/button';
 import { FcGoogle } from 'react-icons/fc';
 import { auth, signIn } from '@/lib/auth';
 import { Session } from '@/lib/types/types';
@@ -37,8 +36,8 @@ export default async function AuthLayout({
               }}
             >
               <Button
-                size={ButtonSizes.LARGE}
-                iconPosition={IconPosition.BEFORE}
+                size="lg"
+                iconPosition="before"
                 icon={<FcGoogle className="size-10" />}
                 label="Continue with Google"
                 className="bg-primary/10 border w-full hover:bg-primary/20"

@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import Button from './ui/Button';
-import { ButtonVariants } from '@/lib/types/button';
 import { Icons } from './icons';
 import { FaRegFileImage } from 'react-icons/fa';
 import { TextArea } from './ui/textfield';
@@ -66,8 +65,11 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
             onFocus={handleFocus}
           />
           <Button
-            variant={ButtonVariants.ICON}
-            icon={<FaRegFileImage className="size-6 text-primary/50" />}
+            variant="icon"
+            icon={
+              <FaRegFileImage className="size-6 text-primary/50 hover:text-primary/90" />
+            }
+            onClick={() => setIsFocused(true)}
           />
         </div>
       )}
@@ -90,36 +92,38 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
             className="w-full bg-transparent min-h-12 border-none outline-none overflow-y-auto"
           />
           <div className="flex bg-primary/10 justify-between items-center mt-2 px-3 py-1">
-            <div
-              className="flex space-x-1 items-center cursor-pointer"
+            <Button
+              variant="ghost"
+              className="flex space-x-1 items-center cursor-pointer group"
               onClick={handleOpenModal}
             >
               <Icons
                 icon={RiOpenaiFill}
-                className="size-7 text-[#9834aa]"
+                className="size-7 text-[#9834aa] group-hover:animate-pulse"
                 onClick={handleOpenModal}
               />
-              <span className="text-sm text-primary/50">Assistant</span>
-            </div>
+              <span className="text-sm text-primary/50 group-hover:text-primary/90">
+                Assistant
+              </span>
+            </Button>
             <div className="flex flex-row">
               <Button
-                variant={ButtonVariants.GHOST}
+                variant="icon"
                 className="text-primary/80 hover:text-primary/100"
-              >
-                <Icons
-                  icon={FaRegFileImage}
-                  className="size-5 text-primary/50"
-                />
-              </Button>
+                icon={
+                  <FaRegFileImage className="size-5 text-primary/50 hover:text-primary/90" />
+                }
+              />
               <Button
-                variant={ButtonVariants.ICON}
+                variant="icon"
                 className="text-primary/80 hover:text-primary/100"
-              >
-                <Icons icon={AiOutlineMore} className="size-7 text-primary" />
-              </Button>
+                icon={
+                  <AiOutlineMore className="size-7 text-primary/50 hover:text-primary/90" />
+                }
+              />
               <Button
                 onClick={handleDiscard}
-                variant={ButtonVariants.GHOST}
+                variant="ghost"
                 className="text-primary/80 hover:text-primary/100 mr-2"
               >
                 Discard

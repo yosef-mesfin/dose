@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonSizes, ButtonVariants, IconPosition } from '@/lib/types/button';
 import Button from './Button';
 import { FaPlus } from 'react-icons/fa';
 import { action } from '@storybook/addon-actions';
@@ -16,25 +15,15 @@ const meta = {
     variant: {
       control: 'select',
       description: 'Button variant',
-      options: [
-        ButtonVariants.SOLID,
-        ButtonVariants.OUTLINE,
-        ButtonVariants.GHOST,
-        ButtonVariants.ICON,
-      ],
+      options: ['solid', 'outline', 'ghost', 'icon'],
     },
     size: {
       control: 'select',
-      options: [
-        ButtonSizes.DEFAULT,
-        ButtonSizes.SMALL,
-        ButtonSizes.LARGE,
-        ButtonSizes.ICON,
-      ],
+      options: ['default', 'sm', 'lg', 'icon'],
     },
     iconPosition: {
       control: 'select',
-      options: [IconPosition.BEFORE, IconPosition.AFTER],
+      options: ['before', 'after'],
     },
     onClick: { action: 'clicked' },
     disabled: { control: 'boolean' },
@@ -53,17 +42,18 @@ type Story = StoryObj<typeof meta>;
 export const Solid: Story = {
   args: {
     label: 'Solid',
-    variant: ButtonVariants.SOLID,
-    size: ButtonSizes.DEFAULT,
+    variant: 'solid',
+    size: 'default',
     onClick: action('default clicked'),
+    className: 'px-4 py-2',
   },
 };
 
 export const Outline: Story = {
   args: {
     label: 'Outline',
-    variant: ButtonVariants.OUTLINE,
-    size: ButtonSizes.DEFAULT,
+    variant: 'outline',
+    size: 'default',
     onClick: action('Outline clicked'),
   },
 };
@@ -71,8 +61,8 @@ export const Outline: Story = {
 export const Ghost: Story = {
   args: {
     label: 'Ghost',
-    variant: ButtonVariants.GHOST,
-    size: ButtonSizes.DEFAULT,
+    variant: 'ghost',
+    size: 'default',
     onClick: action('Ghost clicked'),
   },
 };
@@ -80,43 +70,43 @@ export const Ghost: Story = {
 export const WithIconBefore: Story = {
   args: {
     label: 'Button',
-    variant: ButtonVariants.SOLID,
+    variant: 'solid',
     icon: <FaPlus />,
-    iconPosition: IconPosition.BEFORE,
-    size: ButtonSizes.DEFAULT,
+    iconPosition: 'before',
+    size: 'default',
   },
 };
 
 export const WithIconAfter: Story = {
   args: {
     label: 'Button',
-    variant: ButtonVariants.SOLID,
+    variant: 'solid',
     icon: <FaPlus />,
-    iconPosition: IconPosition.AFTER,
-    size: ButtonSizes.DEFAULT,
+    iconPosition: 'after',
+    size: 'default',
   },
 };
 
 export const Small: Story = {
   args: {
     label: 'Small',
-    variant: ButtonVariants.SOLID,
-    size: ButtonSizes.SMALL,
+    variant: 'solid',
+    size: 'sm',
   },
 };
 
 export const Large: Story = {
   args: {
     label: 'Large',
-    variant: ButtonVariants.SOLID,
-    size: ButtonSizes.LARGE,
+    variant: 'solid',
+    size: 'lg',
   },
 };
 
 export const IconButton: Story = {
   args: {
     icon: <FaPlus />,
-    variant: ButtonVariants.ICON,
-    size: ButtonSizes.ICON,
+    variant: 'icon',
+    size: 'icon',
   },
 };

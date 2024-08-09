@@ -6,11 +6,6 @@ import { FaSearch } from 'react-icons/fa';
 export const Search: React.FC = () => {
   const [query, setQuery] = useState('');
 
-  const handleSearch = () => {
-    console.log('Searching for:', query);
-    // Implement your search logic here
-  };
-
   return (
     <div className="relative w-[40%]">
       <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -20,7 +15,7 @@ export const Search: React.FC = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search..."
-        className="pl-10 h-12 bg-primary/30" // Add padding to the left for the icon
+        className="pl-10 h-12 bg-primary/30"
       />
     </div>
   );
