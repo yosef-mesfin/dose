@@ -20,7 +20,6 @@ export async function createUser(
       resultCode: ResultCode.UserAlreadyExists,
     };
   } else {
-    console.log('body: ', { username, email, hashedPassword, salt });
     try {
       await prisma.user.create({
         data: {
@@ -38,6 +37,35 @@ export async function createUser(
       type: 'success',
       resultCode: ResultCode.UserCreated,
     };
+  }
+}
+
+export async function createGoogleUser(profile: any) {
+  const user = await getUser(profile.email);
+
+  if (user) {
+    return {
+      type: 'success',
+      resultCode: ResultCode.UserAlreadyExists,
+    };
+  } else {
+    try {
+      await prisma.user.create({
+        data: {
+          username: profile.name,
+          email: profile.email,
+          provider: 'google',
+          providerId: profile.sub,
+        },
+      });
+      return {
+        type: 'success',
+        resultCode: ResultCode.UserCreated,
+      };
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
   }
 }
 

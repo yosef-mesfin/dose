@@ -1,8 +1,7 @@
-import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import { ButtonSizes, IconPosition } from '@/lib/types/button';
 import { FcGoogle } from 'react-icons/fc';
-import { auth } from '@/lib/auth';
+import { auth, signIn } from '@/lib/auth';
 import { Session } from '@/lib/types/types';
 import { redirect } from 'next/navigation';
 
@@ -30,7 +29,13 @@ export default async function AuthLayout({
             <div className="w-1/3 border-b border-text"></div>
           </div>
           <div className="mt-6 w-[335px] flex justify-center">
-            <Link href="/notes" className="w-full" prefetch>
+            <form
+              action={async () => {
+                'use server';
+                await signIn('google');
+                redirect('/notes');
+              }}
+            >
               <Button
                 size={ButtonSizes.LARGE}
                 iconPosition={IconPosition.BEFORE}
@@ -38,7 +43,7 @@ export default async function AuthLayout({
                 label="Continue with Google"
                 className="bg-primary/10 border w-full hover:bg-primary/20"
               />
-            </Link>
+            </form>
           </div>
         </div>
       </div>

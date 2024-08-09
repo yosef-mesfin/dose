@@ -4,6 +4,7 @@ import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { Toaster } from '@/components/ui/Toaster';
 
 export const metadata: Metadata = {
   title: 'Dose',
@@ -31,6 +32,7 @@ export default function RootLayout({
           GeistMono.variable
         )}
       >
+        <Toaster position="top-center" />
         <Providers
           attribute="class"
           defaultTheme="system"
