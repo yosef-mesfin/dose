@@ -18,4 +18,18 @@ model User {
   updatedAt     DateTime  @updatedAt
   provider      String?
   providerId    String?
+  notes         Note[]
+}
+
+model Note {
+  id         String   @id @default(cuid())
+  title      String?
+  content    String?
+  imageUrls  String[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isArchived Boolean  @default(false)
+  isTrashed  Boolean  @default(false)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
 }

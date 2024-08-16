@@ -33,6 +33,14 @@ export enum ResultCode {
   UnknownError = 'UNKNOWN_ERROR',
   UserCreated = 'USER_CREATED',
   UserLoggedIn = 'USER_LOGGED_IN',
+
+  // Notes
+  NoteCreated = 'NOTE_CREATED',
+  NoteDeleted = 'NOTE_DELETED',
+  NoteUpdated = 'NOTE_UPDATED',
+  NoteNotFound = 'NOTE_NOT_FOUND',
+  NoteCreationFailed = 'NOTE_CREATION_FAILED',
+  NoteDeletionFailed = 'NOTE_DELETION_FAILED',
 }
 
 export const getMessageFromCode = (resultCode: string) => {
@@ -49,5 +57,9 @@ export const getMessageFromCode = (resultCode: string) => {
       return 'Something went wrong, please try again!';
     case ResultCode.UserLoggedIn:
       return 'Logged in!';
+    case ResultCode.NoteCreated:
+      return 'Note created!';
+    case ResultCode.NoteCreationFailed:
+      return 'Note creation failed!';
   }
 };

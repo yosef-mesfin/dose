@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { MdOutlineArchive } from 'react-icons/md';
 import NoteCard from '@/components/note-card';
 import NotesSkeleton from '@/components/notes-skeleton';
 
@@ -12,7 +11,7 @@ export default function Archive() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
   }, []);
   return (
     <div className="flex-1 flex flex-col overflow-y-scroll p-2">

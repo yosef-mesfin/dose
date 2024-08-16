@@ -84,10 +84,16 @@ export const {
         where: { email: session.user.email },
       });
 
-      session = {
-        ...session,
-        user: { ...session.user, emailVerified: user?.emailVerified ?? null },
-      };
+      if (user) {
+        session = {
+          ...session,
+          user: {
+            ...session.user,
+            id: user?.id,
+            emailVerified: user?.emailVerified,
+          },
+        };
+      }
 
       return session;
     },

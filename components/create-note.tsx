@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Input } from './ui/input';
 import { cn } from '@/lib/utils';
 import Button from './ui/Button';
@@ -9,6 +9,9 @@ import { TextArea } from './ui/textfield';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { AiOutlineMore } from 'react-icons/ai';
 import { SummaryModal } from './summary-modal';
+import useAutosave from '@/lib/hooks/use-autosave';
+import { MdOutlineClose } from 'react-icons/md';
+import { deleteNote } from '@/app/(notes)/notes/actions';
 
 interface CreateNoteProps {}
 
@@ -18,6 +21,7 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [noteId, setNoteId] = useState<string | null>(null);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -29,11 +33,12 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
     }
   };
 
-  const handleDiscard = () => {
-    setTitle('');
-    setText('');
-    setIsFocused(false);
-  };
+  const handleDiscard = useCallback(() => {
+    if (noteId) {
+      deleteNote(noteId);
+    }
+    handleClose();
+  }, [noteId]);
 
   const handleOpenModal = () => {
     setModalOpen(true);
@@ -43,12 +48,41 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
     setModalOpen(false);
   };
 
+  const handleClose = () => {
+    setTitle('');
+    setText('');
+    setNoteId(null);
+    setCurrentNoteId(null);
+    setIsFocused(false);
+  };
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.style.height = 'auto';
       inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, window.innerHeight * 0.7)}px`;
     }
   }, [text]);
+
+  const { isSaving, currentNoteId, setCurrentNoteId, cancelSave } = useAutosave(
+    {
+      noteId,
+      title,
+      content: text,
+      imageUrls: [],
+    }
+  );
+
+  useEffect(() => {
+    if (currentNoteId && currentNoteId !== noteId) {
+      setNoteId(currentNoteId);
+    }
+  }, [currentNoteId]);
+
+  useEffect(() => {
+    if (!isFocused) {
+      cancelSave();
+    }
+  }, [isFocused, cancelSave]);
 
   return (
     <div
@@ -74,7 +108,15 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
         </div>
       )}
       {isFocused && (
-        <div className="">
+        <div className="relative">
+          <Button
+            variant="icon"
+            icon={
+              <MdOutlineClose className="size-7 text-primary/50 hover:text-primary/90" />
+            }
+            className="absolute top-0 right-1"
+            onClick={handleClose}
+          />
           <Input
             type="text"
             value={title}

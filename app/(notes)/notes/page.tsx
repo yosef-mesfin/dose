@@ -12,7 +12,7 @@ export default function Notes() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
