@@ -4,12 +4,24 @@ import { auth } from '@/lib/auth';
 import prisma from '@/lib/db';
 import { Session } from '@/lib/types/types';
 import { ResultCode } from '@/lib/utils';
+import { revalidatePath } from 'next/cache';
 
 export async function getNote(noteId: string) {
   const note = prisma.note.findUnique({
     where: { id: noteId },
   });
   return note;
+}
+
+export async function getNotes() {
+  const session = (await auth()) as Session;
+
+  const notes = prisma.note.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return notes;
 }
 
 export async function createNote(
@@ -29,6 +41,8 @@ export async function createNote(
       },
     });
 
+    revalidatePath('/notes');
+
     return note;
   } catch (error) {
     console.error('Error creating note:', error);
@@ -45,6 +59,7 @@ export async function updateNote(
       where: { id: noteId },
       data,
     });
+    revalidatePath('/notes');
     return {
       type: 'success',
       resultCode: ResultCode.NoteUpdated,

@@ -12,6 +12,10 @@ import { SummaryModal } from './summary-modal';
 import useAutosave from '@/lib/hooks/use-autosave';
 import { MdOutlineClose } from 'react-icons/md';
 import { deleteNote } from '@/app/(notes)/notes/actions';
+import { convertToBase64 } from '@/lib/utils';
+import { LoadingSpinner } from './ui/loading-spinner';
+import { useAutoResize } from '@/lib/hooks/use-autoresize';
+import { ImagePreview } from './note-image-previews';
 
 interface CreateNoteProps {}
 
@@ -22,10 +26,10 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
   const [text, setText] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [noteId, setNoteId] = useState<string | null>(null);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
+  const handleFocus = () => setIsFocused(true);
 
   const handleBlur = () => {
     if (!text.trim() && !title.trim()) {
@@ -51,24 +55,45 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
   const handleClose = () => {
     setTitle('');
     setText('');
+    setImageUrls([]);
     setNoteId(null);
     setCurrentNoteId(null);
     setIsFocused(false);
   };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, window.innerHeight * 0.7)}px`;
+  const handleFileClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
-  }, [text]);
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        const base64 = await convertToBase64(file);
+        setImageUrls((prev) => [...prev, base64]);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setImageUrls((prev) => prev.filter((_, i) => i !== index));
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  useAutoResize(inputRef, text);
 
   const { isSaving, currentNoteId, setCurrentNoteId, cancelSave } = useAutosave(
     {
       noteId,
       title,
       content: text,
-      imageUrls: [],
+      imageUrls,
     }
   );
 
@@ -109,14 +134,18 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
       )}
       {isFocused && (
         <div className="relative">
-          <Button
-            variant="icon"
-            icon={
-              <MdOutlineClose className="size-7 text-primary/50 hover:text-primary/90" />
-            }
-            className="absolute top-0 right-1"
-            onClick={handleClose}
-          />
+          {isSaving ? (
+            <LoadingSpinner className="absolute top-2 right-3" />
+          ) : (
+            <Button
+              variant="icon"
+              icon={
+                <MdOutlineClose className="size-7 text-primary/50 hover:text-primary/90" />
+              }
+              className="absolute top-0 right-1"
+              onClick={handleClose}
+            />
+          )}
           <Input
             type="text"
             value={title}
@@ -125,6 +154,7 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
             className="mb-2 mt-2 w-full font-semibold text-lg bg-transparent outline-none border-b"
             onFocus={handleFocus}
           />
+          <ImagePreview imageUrls={imageUrls} removeImage={removeImage} />
           <TextArea
             ref={inputRef}
             value={text}
@@ -155,6 +185,14 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
                 icon={
                   <FaRegFileImage className="size-5 text-primary/50 hover:text-primary/90" />
                 }
+                onClick={handleFileClick}
+              />
+              <Input
+                type="file"
+                className="hidden"
+                accept=".jpg,.jpeg,.png, .webp"
+                ref={fileInputRef}
+                onChange={handleFileChange}
               />
               <Button
                 variant="icon"
