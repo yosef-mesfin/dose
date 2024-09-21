@@ -9,6 +9,7 @@ import { IoMdAttach } from 'react-icons/io';
 import { Summary } from './summary';
 import Image from 'next/image';
 import ShinyButton from './ui/ShinyButton';
+import SummaryWelcome from './summary-welcome';
 interface SummaryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -116,31 +117,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
               <Summary response={response} onDiscard={handleDiscard} />
             </div>
           ) : (
-            !filename && (
-              <div className="card-wrapper h-[180px] w-[180px] m-auto ">
-                <div
-                  className="card-content flex items-center justify-center text-center p-2"
-                  style={{
-                    height: 'calc(100% - 4px)',
-                    width: 'calc(100% - 4px)',
-                    top: '2px',
-                    left: '2px',
-                  }}
-                >
-                  <p>
-                    upload{' '}
-                    <code className="px-2 bg-gray-100 dark:bg-gray-800 rounded">
-                      .srt
-                    </code>{' '}
-                    or{' '}
-                    <code className="px-2 bg-gray-100 dark:bg-gray-800 rounded">
-                      .txt
-                    </code>{' '}
-                    file to generate a summary
-                  </p>
-                </div>
-              </div>
-            )
+            !filename && <SummaryWelcome />
           )}
         </div>
         <div className="flex items-center w-full space-x-2 bg-primary/10 px-4 h-14 rounded-b-xl">
