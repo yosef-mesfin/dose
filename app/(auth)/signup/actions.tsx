@@ -1,5 +1,6 @@
 'use server';
-import { getStringFromBuffer, ResultCode } from '@/lib/utils';
+import { getStringFromBuffer } from '@/lib/utils';
+import { ResultCode } from '@/lib/types/types';
 import { getUser } from '../login/actions';
 import prisma from '@/lib/db';
 import { z } from 'zod';

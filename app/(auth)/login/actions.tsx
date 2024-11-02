@@ -2,7 +2,7 @@
 
 import { signIn } from '@/lib/auth';
 import prisma from '@/lib/db';
-import { ResultCode } from '@/lib/utils';
+import { ResultCode } from '@/lib/types/types';
 import { AuthError } from 'next-auth';
 import { z } from 'zod';
 

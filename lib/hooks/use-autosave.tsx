@@ -1,17 +1,17 @@
 'use client';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { createNote, updateNote, getNote } from '@/app/(notes)/notes/actions';
+import { createNote, updateNote, getNote } from '@/app/(notes)/actions';
 import { useDebounceCallback } from 'usehooks-ts';
 
 interface AutoSaveNotes {
   title: string;
-  content: string;
+  textContent: string;
   imageUrls: string[];
   noteId: string | null;
 }
 
 function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
-  const { noteId, title, content, imageUrls } = value;
+  const { noteId, title, textContent, imageUrls } = value;
   const [isSaving, setSaving] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState<string | null>(noteId);
 
@@ -29,7 +29,7 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
   }, [currentNoteId]);
 
   const saveNote = useCallback(async () => {
-    if (!title && !content && imageUrls.length === 0) {
+    if (!title && !textContent && imageUrls.length === 0) {
       console.log('No content to save.');
       return;
     }
@@ -48,13 +48,13 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
         if (existingNote) {
           await updateNote(currentNoteIdRef.current, {
             title,
-            content,
+            content: textContent,
             imageUrls,
           });
           console.log('Note updated successfully.');
         }
       } else {
-        const newNote = await createNote(title, content, imageUrls);
+        const newNote = await createNote(title, textContent, imageUrls);
         setCurrentNoteId(newNote.id);
         console.log('New note created successfully.');
       }
@@ -63,7 +63,7 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
     } finally {
       setSaving(false);
     }
-  }, [title, content, imageUrls]);
+  }, [title, textContent, imageUrls]);
 
   const debouncedSave = useDebounceCallback(saveNote, delay);
 
@@ -73,14 +73,14 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
   }, [debouncedSave]);
 
   useEffect(() => {
-    if (title || content || imageUrls.length > 0) {
+    if (title || textContent || imageUrls.length > 0) {
       debouncedSave();
     }
 
     return () => {
       debouncedSave.cancel();
     };
-  }, [title, content, imageUrls, debouncedSave]);
+  }, [title, textContent, imageUrls, debouncedSave]);
 
   return { isSaving, currentNoteId, setCurrentNoteId, cancelSave };
 }

@@ -41,7 +41,7 @@ export const SidebarDesktop: React.FC = () => {
           >
             <SidebarToggle />
             {isSidebarOpen && (
-              <Link href="/">
+              <Link href="/" prefetch={true}>
                 <h1 className="text-2xl italic text-[#C085CA]">Dose</h1>
               </Link>
             )}

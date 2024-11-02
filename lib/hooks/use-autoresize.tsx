@@ -7,7 +7,7 @@ export const useAutoResize = (
   useEffect(() => {
     if (ref.current) {
       ref.current.style.height = 'auto';
-      ref.current.style.height = `${Math.min(ref.current.scrollHeight, window.innerHeight * 0.7)}px`;
+      ref.current.style.height = `${Math.min(ref.current.scrollHeight, window.innerHeight * 0.4)}px`;
     }
   }, [text, ref]);
 };

@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import './globals.css';
+import type { Metadata } from 'next';
 import { Providers } from '@/components/providers';
 import { cn } from '@/lib/utils';
 import { GeistSans } from 'geist/font/sans';

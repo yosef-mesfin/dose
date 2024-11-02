@@ -7,7 +7,15 @@ import { ThemeProvider as NextThemeProvider } from 'next-themes';
 import { ThemeProviderProps } from 'next-themes/dist/types';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 export const Providers = ({ children, ...props }: ThemeProviderProps) => {
   return (

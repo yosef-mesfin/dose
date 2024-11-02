@@ -18,7 +18,7 @@ const ImagePreview = React.memo(
             alt={`note-image-${index}`}
             height={50}
             width={50}
-            className="w-full h-48 object-cover rounded-lg"
+            className={`w-full h-96 object-cover rounded-lg`}
           />
           <Button
             variant="icon"
