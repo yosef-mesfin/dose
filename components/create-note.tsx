@@ -16,12 +16,12 @@ import { convertToBase64 } from '@/lib/utils';
 import { LoadingSpinner } from './ui/loading-spinner';
 import { useAutoResize } from '@/lib/hooks/use-autoresize';
 import { ImagePreview } from './note-image-previews';
+import { useModal } from '@/lib/hooks/use-modal';
 
 interface ICreateNoteProps {}
 
 const CreateNote: React.FC<ICreateNoteProps> = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [textContent, setTextContent] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -44,12 +44,15 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
     handleClose();
   }, [noteId]);
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
+  const { openModal, closeModal, isOpen } = useModal();
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleOpenSummaryModal = () => {
+    openModal(
+      <SummaryModal
+        onClose={closeModal}
+        onAddSummary={() => handleAddSummary}
+      />
+    );
   };
 
   const handleClose = () => {
@@ -90,7 +93,7 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
 
   const handleAddSummary = (summary: string) => {
     setTextContent((prev) => prev + summary);
-    handleCloseModal();
+    handleClose();
   };
 
   const { isSaving, currentNoteId, setCurrentNoteId, cancelSave } = useAutosave(
@@ -172,12 +175,12 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
             <Button
               variant="ghost"
               className="flex space-x-1 items-center cursor-pointer group"
-              onClick={handleOpenModal}
+              onClick={handleOpenSummaryModal}
             >
               <Icons
                 icon={RiOpenaiFill}
                 className="size-7 text-[#9834aa] group-hover:animate-pulse"
-                onClick={handleOpenModal}
+                onClick={handleClose}
               />
               <span className="text-sm text-primary/50 group-hover:text-primary/90">
                 Assistant
@@ -217,11 +220,6 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
           </div>
         </div>
       )}
-      <SummaryModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddSummary={handleAddSummary}
-      />
     </div>
   );
 };

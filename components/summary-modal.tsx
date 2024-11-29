@@ -13,14 +13,14 @@ import SummaryWelcome from './summary-welcome';
 import { generateSummary } from '@/lib/summary/actions';
 import { getMessageFromCode, preprocessFile } from '@/lib/utils';
 import { ResultCode } from '@/lib/types/types';
+import { LoadingSpinner } from './ui/loading-spinner';
+import { MdOutlineClose } from 'react-icons/md';
 interface SummaryModalProps {
-  isOpen: boolean;
   onClose: () => void;
   onAddSummary: (summary: string) => void;
 }
 
 const SummaryModal: React.FC<SummaryModalProps> = ({
-  isOpen,
   onClose,
   onAddSummary,
 }) => {
@@ -99,10 +99,24 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
 
   return (
     <Dialog
-      isOpen={isOpen}
       onClose={onClose}
-      className="flex flex-col justify-center border border-[#C085CA]/40 bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
+      className="relative flex flex-col justify-center border border-[#C085CA]/40 bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
     >
+      {loading ? (
+        <LoadingSpinner className="absolute top-2 right-3" />
+      ) : (
+        <Button
+          variant="icon"
+          icon={
+            <MdOutlineClose className="size-7 text-primary/50 hover:text-primary/90" />
+          }
+          className="absolute top-0 right-1"
+          onClick={() => {
+            onClose();
+          }}
+        />
+      )}
+
       <div className="w-full px-2 pt-2">
         <Icons
           icon={RiOpenaiFill}

@@ -1,43 +1,36 @@
-import React from 'react';
+import React, { ReactNode, useRef, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
-interface DialogProps {
-  isOpen: boolean;
+interface IDialogProps {
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
-const Dialog: React.FC<DialogProps> = ({
-  isOpen,
-  onClose,
-  children,
-  className,
-}) => {
-  if (!isOpen) return null;
+const Dialog: React.FC<IDialogProps> = ({ onClose, children, className }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (dialogRef.current && !dialogRef.current.contains(e.target as Node)) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-black/30 flex justify-center items-center">
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-        aria-hidden="true"
-        onClick={onClose}
-      />
-      <div
+        ref={dialogRef}
         className={cn(
-          'relative z-20 w-11/12 max-w-3xl rounded-lg shadow-lg',
-          'transition-all transform',
-          isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0',
+          'relative z-20 bg-white dark:bg-gray-800 rounded-lg shadow-lg',
           className
         )}
       >
         {children}
-        <button
-          className="absolute top-3 right-3 text-primary dark:text-primary/50 hover:text-primary/90"
-          onClick={onClose}
-        >
-          close
-        </button>
       </div>
     </div>
   );
