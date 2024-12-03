@@ -1,4 +1,4 @@
-import NoteLists from '@/components/note-lists';
+import NoteLists from '@/components/notes/note-lists';
 
 export default function Trash() {
   return (

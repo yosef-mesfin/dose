@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
-import Button from './ui/Button';
+import Button from '../ui/Button';
 
 type ImagePreviewProps = {
   imageUrls: string[];

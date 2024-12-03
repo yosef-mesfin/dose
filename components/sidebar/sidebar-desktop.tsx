@@ -10,7 +10,7 @@ import {
 } from 'react-icons/md';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
-import { SidebarToggle } from './ui/sidebar-toggle';
+import { SidebarToggle } from '../ui/sidebar-toggle';
 import Link from 'next/link';
 
 const menus = [

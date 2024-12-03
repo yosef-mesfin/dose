@@ -33,7 +33,6 @@ const NoteCard: React.FC<NoteCardProps> = ({
   imageUrls,
 }) => {
   const path = usePathname();
-  // const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleArchive = async () => {
     try {

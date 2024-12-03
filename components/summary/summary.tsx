@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './ui/Button';
+import Button from '../ui/Button';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoMdRefresh } from 'react-icons/io';
 import { FaPlus } from 'react-icons/fa6';

@@ -1,21 +1,21 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Input } from './ui/input';
-import { TextArea } from './ui/textfield';
+import { Input } from '../ui/input';
+import { TextArea } from '../ui/textfield';
 import { ImagePreview } from './note-image-previews';
 import { convertToBase64 } from '@/lib/utils';
 import { useAutoResize } from '@/lib/hooks/use-autoresize';
-import { LoadingSpinner } from './ui/loading-spinner';
+import { LoadingSpinner } from '../ui/loading-spinner';
 import { MdOutlineClose } from 'react-icons/md';
 import useAutosave from '@/lib/hooks/use-autosave';
-import Button from './ui/Button';
+import Button from '../ui/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { FaRegFileImage } from 'react-icons/fa';
 import { AiOutlineMore } from 'react-icons/ai';
-import { SummaryModal } from './summary-modal';
+import { SummaryModal } from '../summary/summary-modal';
 import { useModal } from '@/lib/hooks/use-modal';
-import { Dialog } from './ui/dialog';
+import { Dialog } from '../ui/dialog';
 
 interface IEditNoteModalProps {
   // isOpen: boolean;

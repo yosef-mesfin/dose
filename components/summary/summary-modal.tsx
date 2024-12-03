@@ -1,19 +1,20 @@
+'use client';
 import React, { useState } from 'react';
-import { Dialog } from './ui/dialog';
-import { Input } from './ui/input';
-import Button from './ui/Button';
+import { Dialog } from '../ui/dialog';
+import { Input } from '../ui/input';
+import Button from '../ui/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
-import { Icons } from './icons';
+import { Icons } from '../icons';
 import { IoMdSend } from 'react-icons/io';
 import { IoMdAttach } from 'react-icons/io';
 import { Summary } from './summary';
 import Image from 'next/image';
-import ShinyButton from './ui/ShinyButton';
+import ShinyButton from '../ui/ShinyButton';
 import SummaryWelcome from './summary-welcome';
 import { generateSummary } from '@/lib/summary/actions';
 import { getMessageFromCode, preprocessFile } from '@/lib/utils';
 import { ResultCode } from '@/lib/types/types';
-import { LoadingSpinner } from './ui/loading-spinner';
+import { LoadingSpinner } from '../ui/loading-spinner';
 import { MdOutlineClose } from 'react-icons/md';
 interface SummaryModalProps {
   onClose: () => void;

@@ -1,5 +1,5 @@
-import { CreateNote } from '@/components/create-note';
-import NoteLists from '@/components/note-lists';
+import { CreateNote } from '@/components/notes/create-note';
+import NoteLists from '@/components/notes/note-lists';
 
 export default async function Notes() {
   return (
