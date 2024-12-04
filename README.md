@@ -1,8 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dose - Minimalist Note-Taking Application
+
+Dose is a minimalist note-taking application enhanced with OpenAI-powered summarization capabilities. Users can summarize their notes or transcription files by uploading files directly within individual notes.
+
+## File Structure
+
+The project is organized into the following structure:
+
+- `/app` - Contains the main Next.js app directory for routing and server actions.
+- `/components` - Reusable UI components.
+- `/lib` - Utility functions and configurations.
+- `/prisma` - Database schema and related files.
+- `/public` - Static assets such as images and fonts.
+- `/stories` - Storybook files for component documentation and testing.
 
 ## Getting Started
 
-First, run the development server:
+To run the development server:
 
 ```bash
 npm run dev
@@ -12,25 +25,31 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can start editing the app by modifying files in the `/app` directory. The application auto-updates as you make changes.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
+
+- **Note Summarization**: Summarize notes effortlessly with OpenAI integration.
+- **Transcription File Support**: Upload transcription files and get concise summaries directly within notes.
+- **Minimalist Design**: Focused and distraction-free note-taking experience.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about the tools and frameworks used in this project:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [Next.js Documentation](https://nextjs.org/docs) - Explore Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - Interactive tutorial for beginners.
+- [OpenAI](https://openai.com) - Learn about the AI capabilities integrated into this app.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The recommended platform for deploying this application is [Vercel](https://vercel.com).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Refer to the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for detailed instructions.
+
+---
+
+Start taking notes with Dose today and enhance your productivity with AI-driven summaries!
