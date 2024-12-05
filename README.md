@@ -13,6 +13,20 @@ The project is organized into the following structure:
 - `/public` - Static assets such as images and fonts.
 - `/stories` - Storybook files for component documentation and testing.
 
+## Installation
+
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
 ## Getting Started
 
 To run the development server:
@@ -25,6 +39,7 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
