@@ -1,29 +1,29 @@
 'use client';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 import { cn } from '@/lib/utils';
-import Button from './ui/Button';
-import { Icons } from './icons';
+import Button from '../ui/Button';
+import { Icons } from '../icons';
 import { FaRegFileImage } from 'react-icons/fa';
-import { TextArea } from './ui/textfield';
+import { TextArea } from '../ui/textfield';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { AiOutlineMore } from 'react-icons/ai';
-import { SummaryModal } from './summary-modal';
+import { SummaryModal } from '../summary/summary-modal';
 import useAutosave from '@/lib/hooks/use-autosave';
 import { MdOutlineClose } from 'react-icons/md';
-import { deleteNote } from '@/app/(notes)/notes/actions';
+import { deleteNote } from '@/app/(notes)/actions';
 import { convertToBase64 } from '@/lib/utils';
-import { LoadingSpinner } from './ui/loading-spinner';
+import { LoadingSpinner } from '../ui/loading-spinner';
 import { useAutoResize } from '@/lib/hooks/use-autoresize';
 import { ImagePreview } from './note-image-previews';
+import { useModal } from '@/lib/hooks/use-modal';
 
-interface CreateNoteProps {}
+interface ICreateNoteProps {}
 
-const CreateNote: React.FC<CreateNoteProps> = () => {
+const CreateNote: React.FC<ICreateNoteProps> = () => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
   const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [textContent, setTextContent] = useState('');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [noteId, setNoteId] = useState<string | null>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
@@ -32,7 +32,7 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
   const handleFocus = () => setIsFocused(true);
 
   const handleBlur = () => {
-    if (!text.trim() && !title.trim()) {
+    if (!textContent.trim() && !title.trim()) {
       setIsFocused(false);
     }
   };
@@ -44,17 +44,20 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
     handleClose();
   }, [noteId]);
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
+  const { openModal, closeModal, isOpen } = useModal();
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleOpenSummaryModal = () => {
+    openModal(
+      <SummaryModal
+        onClose={closeModal}
+        onAddSummary={() => handleAddSummary}
+      />
+    );
   };
 
   const handleClose = () => {
     setTitle('');
-    setText('');
+    setTextContent('');
     setImageUrls([]);
     setNoteId(null);
     setCurrentNoteId(null);
@@ -86,13 +89,18 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
     }
   };
 
-  useAutoResize(inputRef, text);
+  useAutoResize(inputRef, textContent);
+
+  const handleAddSummary = (summary: string) => {
+    setTextContent((prev) => prev + summary);
+    handleClose();
+  };
 
   const { isSaving, currentNoteId, setCurrentNoteId, cancelSave } = useAutosave(
     {
       noteId,
       title,
-      content: text,
+      textContent,
       imageUrls,
     }
   );
@@ -157,8 +165,8 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
           <ImagePreview imageUrls={imageUrls} removeImage={removeImage} />
           <TextArea
             ref={inputRef}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={textContent}
+            onChange={(e) => setTextContent(e.target.value)}
             onBlur={handleBlur}
             placeholder="Take a note..."
             className="w-full bg-transparent min-h-12 border-none outline-none overflow-y-auto"
@@ -167,12 +175,12 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
             <Button
               variant="ghost"
               className="flex space-x-1 items-center cursor-pointer group"
-              onClick={handleOpenModal}
+              onClick={handleOpenSummaryModal}
             >
               <Icons
                 icon={RiOpenaiFill}
                 className="size-7 text-[#9834aa] group-hover:animate-pulse"
-                onClick={handleOpenModal}
+                onClick={handleClose}
               />
               <span className="text-sm text-primary/50 group-hover:text-primary/90">
                 Assistant
@@ -212,7 +220,6 @@ const CreateNote: React.FC<CreateNoteProps> = () => {
           </div>
         </div>
       )}
-      <SummaryModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 };

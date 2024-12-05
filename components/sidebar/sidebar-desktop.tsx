@@ -10,7 +10,7 @@ import {
 } from 'react-icons/md';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
-import { SidebarToggle } from './ui/sidebar-toggle';
+import { SidebarToggle } from '../ui/sidebar-toggle';
 import Link from 'next/link';
 
 const menus = [
@@ -41,7 +41,7 @@ export const SidebarDesktop: React.FC = () => {
           >
             <SidebarToggle />
             {isSidebarOpen && (
-              <Link href="/">
+              <Link href="/" prefetch={true}>
                 <h1 className="text-2xl italic text-[#C085CA]">Dose</h1>
               </Link>
             )}

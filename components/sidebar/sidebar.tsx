@@ -3,7 +3,7 @@
 import React from 'react';
 import { useSidebar } from '@/lib/hooks/use-sidebar';
 import { cn } from '@/lib/utils';
-import { LoadingSpinner } from './ui/loading-spinner';
+import { LoadingSpinner } from '../ui/loading-spinner';
 
 export interface SidebarProps extends React.ComponentProps<'div'> {
   children: React.ReactNode;

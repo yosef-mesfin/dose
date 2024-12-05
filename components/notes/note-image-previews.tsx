@@ -1,7 +1,7 @@
 import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import Image from 'next/image';
-import Button from './ui/Button';
+import Button from '../ui/Button';
 
 type ImagePreviewProps = {
   imageUrls: string[];
@@ -18,7 +18,7 @@ const ImagePreview = React.memo(
             alt={`note-image-${index}`}
             height={50}
             width={50}
-            className="w-full h-48 object-cover rounded-lg"
+            className={`w-full h-96 object-cover rounded-lg`}
           />
           <Button
             variant="icon"

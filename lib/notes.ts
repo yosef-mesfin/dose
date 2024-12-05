@@ -1,25 +1,16 @@
-import { auth } from './auth';
-import { Session } from './types/types';
-import prisma from './db';
-import { unstable_noStore as noStore } from 'next/cache';
+import { getNotes } from '@/app/(notes)/actions';
+import { cache } from 'react';
+import { Note, Result } from './types/types';
 
-export async function fetchNotes() {
-  noStore();
-  const session = (await auth()) as Session;
-
-  try {
-    const notes = await prisma.note.findMany({
-      where: {
-        userId: session.user.id,
-      },
-      orderBy: {
-        updatedAt: 'desc',
-      },
-    });
-
-    return notes;
-  } catch (error) {
-    console.error('Error fetching notes:', error);
-    throw new Error('Failed to fetch notes');
-  }
+interface ILoadNotesProps {
+  isArchived?: boolean;
+  isTrashed?: boolean;
 }
+
+export const loadNotes = cache(
+  async ({ isArchived, isTrashed }: ILoadNotesProps = {}): Promise<
+    Result<Note[]>
+  > => {
+    return await getNotes({ isArchived, isTrashed });
+  }
+);

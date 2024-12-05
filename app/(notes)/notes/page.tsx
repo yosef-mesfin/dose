@@ -1,7 +1,5 @@
-import { Suspense } from 'react';
-import { CreateNote } from '@/components/create-note';
-import NotesSkeleton from '@/components/notes-skeleton';
-import NoteLists from '@/components/note-lists';
+import { CreateNote } from '@/components/notes/create-note';
+import NoteLists from '@/components/notes/note-lists';
 
 export default async function Notes() {
   return (
@@ -10,9 +8,7 @@ export default async function Notes() {
         <CreateNote />
       </div>
       <div className="flex-1 mt-6">
-        <Suspense fallback={<NotesSkeleton />}>
-          <NoteLists />
-        </Suspense>
+        <NoteLists isArchived={false} isTrashed={false} />
       </div>
     </div>
   );

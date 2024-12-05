@@ -1,64 +1,38 @@
+'use client';
 import React, { useState } from 'react';
-import { Dialog } from './ui/dialog';
-import { Input } from './ui/input';
-import Button from './ui/Button';
+import { Dialog } from '../ui/dialog';
+import { Input } from '../ui/input';
+import Button from '../ui/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
-import { Icons } from './icons';
+import { Icons } from '../icons';
 import { IoMdSend } from 'react-icons/io';
 import { IoMdAttach } from 'react-icons/io';
 import { Summary } from './summary';
 import Image from 'next/image';
-import ShinyButton from './ui/ShinyButton';
+import ShinyButton from '../ui/ShinyButton';
 import SummaryWelcome from './summary-welcome';
+import { generateSummary } from '@/lib/summary/actions';
+import { getMessageFromCode, preprocessFile } from '@/lib/utils';
+import { ResultCode } from '@/lib/types/types';
+import { LoadingSpinner } from '../ui/loading-spinner';
+import { MdOutlineClose } from 'react-icons/md';
 interface SummaryModalProps {
-  isOpen: boolean;
   onClose: () => void;
+  onAddSummary: (summary: string) => void;
 }
 
-const sampleSummary = `This is a sample summary response. It is generated using the OpenAI
- API. The response is generated based on the input prompt provided by the user. The response
-  is generated using the GPT-3 model, which is a state-of-the-art language model developed by
-   OpenAI. The response is generated based on the input prompt provided by the user. The response
-    is generated using the GPT-3 model, which is a state-of-the-art language model developed by OpenAI.
-    \n
-  This is a sample summary response. It is generated using the OpenAI API. The response is generated based on the input prompt provided by the user. The response
-  is generated using the GPT-3 model, which is a state-of-the-art language model developed by
-   OpenAI. The response is generated based on the input prompt provided by the user. The response
-    is generated using the GPT-3 model, which is a state-of-the-art language model developed by OpenAI.
-    `;
-
-const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
+const SummaryModal: React.FC<SummaryModalProps> = ({
+  onClose,
+  onAddSummary,
+}) => {
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
   const [focus, setFocus] = useState(false);
   const [filename, setFilename] = useState('');
+  const [fileChunks, setFileChunks] = useState<string[] | null>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-
-  const handleGenerate = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setResponse(sampleSummary);
-    }, 10000);
-  };
-
-  const handleDiscard = () => {
-    setResponse('');
-    setPrompt('');
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-    setFilename('');
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFilename(file.name);
-      setResponse('');
-    }
-  };
+  const [error, setError] = useState<ResultCode | null>(null);
 
   const handleFileClick = () => {
     if (fileInputRef.current) {
@@ -66,12 +40,84 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFilename(file.name);
+    setLoading(true);
+
+    try {
+      const chunks = await preprocessFile(file);
+      setFileChunks(chunks);
+      setResponse('');
+    } catch (error) {
+      console.error('Error Processing file: ', error);
+      setResponse('Error Processing file');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGenerate = async () => {
+    if (!fileChunks) return;
+
+    setLoading(true);
+
+    try {
+      const summary = await generateSummary(fileChunks);
+      setResponse(summary);
+    } catch (error) {
+      console.error('Error Generating Summary: ', error);
+      setError(ResultCode.SummaryFailed);
+      setResponse('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDiscard = () => {
+    setResponse('');
+    setFilename('');
+    setFileChunks(null);
+    setPrompt('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  //Add note and close Modal
+  const handleAdd = () => {
+    if (response) onAddSummary(response);
+    handleDiscard();
+    onClose();
+  };
+
+  const handleRefresh = () => {
+    setResponse('');
+    handleGenerate();
+  };
+
   return (
     <Dialog
-      isOpen={isOpen}
       onClose={onClose}
-      className="flex flex-col justify-center border border-[#C085CA]/40 bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
+      className="relative flex flex-col justify-center border border-[#C085CA]/40 bg-secondary h-[80vh] dark:bg-dark-700 rounded-xl shadow-lg w-full max-w-3xl"
     >
+      {loading ? (
+        <LoadingSpinner className="absolute top-2 right-3" />
+      ) : (
+        <Button
+          variant="icon"
+          icon={
+            <MdOutlineClose className="size-7 text-primary/50 hover:text-primary/90" />
+          }
+          className="absolute top-0 right-1"
+          onClick={() => {
+            onClose();
+          }}
+        />
+      )}
+
       <div className="w-full px-2 pt-2">
         <Icons
           icon={RiOpenaiFill}
@@ -81,7 +127,7 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
       <div className="flex flex-col flex-1 space-y-4">
         <div className="m-1 flex flex-col gap-3 p-2 px-8">
           <div className="flex gap-4 items-center">
-            {(filename || prompt) && (
+            {filename && (
               <Image
                 src="/images/user.webp"
                 alt="user"
@@ -98,26 +144,34 @@ const SummaryModal: React.FC<SummaryModalProps> = ({ isOpen, onClose }) => {
                 </div>
               )}
             </div>
-            {!prompt && filename && (
+            {filename && (
               <ShinyButton onClick={handleGenerate}>summarize</ShinyButton>
             )}
           </div>
         </div>
         <div className="flex-grow rounded-lg flex items-start justify-center">
-          {loading && (
+          {loading ? (
             <div className="m-auto text-[#9843AA] animate-spin">
               <Button
                 variant="icon"
                 icon={<RiOpenaiFill className="size-12" />}
               />
             </div>
-          )}
-          {response ? (
+          ) : response ? (
             <div className="w-[90%] h-auto py-2 px-4">
-              <Summary response={response} onDiscard={handleDiscard} />
+              <Summary
+                response={response}
+                onDiscard={handleDiscard}
+                onAdd={handleAdd}
+                onRefresh={handleRefresh}
+              />
             </div>
+          ) : error ? (
+            <p className="text-red-500 text-center">
+              {getMessageFromCode(error)}
+            </p>
           ) : (
-            !filename && <SummaryWelcome />
+            <SummaryWelcome />
           )}
         </div>
         <div className="flex items-center w-full space-x-2 bg-primary/10 px-4 h-14 rounded-b-xl">

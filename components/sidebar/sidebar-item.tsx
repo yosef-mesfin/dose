@@ -29,6 +29,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           : 'text-primary/80 hover:bg-primary/10 hover:text-primary/80'
       }`}
       aria-current={isActive ? 'page' : undefined}
+      prefetch={true}
     >
       <Icons
         icon={Icon}

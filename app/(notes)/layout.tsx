@@ -1,10 +1,12 @@
-import { SidebarDesktop } from '@/components/sidebar-desktop';
+import { SidebarDesktop } from '@/components/sidebar/sidebar-desktop';
 import { Search } from '@/components/search';
 import { auth, signOut } from '@/lib/auth';
 import { Session } from '@/lib/types/types';
 import { redirect } from 'next/navigation';
 import Button from '@/components/ui/Button';
 import { AiOutlineLogout } from 'react-icons/ai';
+import { Suspense } from 'react';
+import NotesSkeleton from '@/components/notes/notes-skeleton';
 
 interface INoteLayoutProps {
   children: React.ReactNode;
@@ -41,7 +43,7 @@ export default async function NoteLayout({ children }: INoteLayoutProps) {
               />
             </form>
           </div>
-          {children}
+          <Suspense fallback={<NotesSkeleton />}>{children}</Suspense>
         </div>
       </div>
     </main>
