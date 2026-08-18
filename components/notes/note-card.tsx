@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaEllipsisV, FaRegTrashAlt } from 'react-icons/fa';
+import { FaRegTrashAlt } from 'react-icons/fa';
 import { getMessageFromCode, truncateText } from '@/lib/utils';
 import { ResultCode } from '@/lib/types/types';
 import { MdOutlineArchive, MdOutlineUnarchive } from 'react-icons/md';
@@ -110,7 +110,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
         onClick={openEditModal}
       >
         <h2 className="text-md font-semibold mb-2 text-primary/80">{title}</h2>
-        {imageUrls && (
+        {imageUrls?.[0] && (
           <img
             src={imageUrls[0]}
             alt={title}
@@ -159,7 +159,6 @@ const NoteCard: React.FC<NoteCardProps> = ({
             />
           </>
         )}
-        <FaEllipsisV className="text-primary/80 cursor-pointer hover:text-primary" />
       </div>
     </div>
   );

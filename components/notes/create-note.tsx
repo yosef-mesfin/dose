@@ -7,7 +7,6 @@ import { Icons } from '../icons';
 import { FaRegFileImage } from 'react-icons/fa';
 import { TextArea } from '../ui/textfield';
 import { RiOpenaiFill } from 'react-icons/ri';
-import { AiOutlineMore } from 'react-icons/ai';
 import { SummaryModal } from '../summary/summary-modal';
 import useAutosave from '@/lib/hooks/use-autosave';
 import { MdOutlineClose } from 'react-icons/md';
@@ -197,13 +196,6 @@ const CreateNote: React.FC = () => {
                 accept=".jpg,.jpeg,.png, .webp"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-              />
-              <Button
-                variant="icon"
-                className="text-primary/80 hover:text-primary/100"
-                icon={
-                  <AiOutlineMore className="size-7 text-primary/50 hover:text-primary/90" />
-                }
               />
               <Button
                 onClick={handleDiscard}
