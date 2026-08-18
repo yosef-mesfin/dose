@@ -1,14 +1,22 @@
 import { CreateNote } from '@/components/notes/create-note';
 import NoteLists from '@/components/notes/note-lists';
 
-export default async function Notes() {
+export default async function Notes({
+  searchParams,
+}: {
+  searchParams: { q?: string };
+}) {
   return (
     <div className="flex-1 flex flex-col overflow-y-scroll p-2">
       <div className="h-auto mt-3 p-2 flex items-center justify-center">
         <CreateNote />
       </div>
       <div className="flex-1 mt-6">
-        <NoteLists isArchived={false} isTrashed={false} />
+        <NoteLists
+          isArchived={false}
+          isTrashed={false}
+          query={searchParams.q}
+        />
       </div>
     </div>
   );

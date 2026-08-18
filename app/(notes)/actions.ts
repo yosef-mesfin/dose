@@ -2,6 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import prisma from '@/lib/db';
+import { buildNotesWhere } from '@/lib/notes-query';
 import { Result, Session } from '@/lib/types/types';
 import { ResultCode } from '@/lib/types/types';
 import { Note } from '@prisma/client';
@@ -17,11 +18,13 @@ export async function getNote(noteId: string) {
 interface INotesQuery {
   isArchived?: boolean;
   isTrashed?: boolean;
+  query?: string;
 }
 
 export async function getNotes({
   isArchived,
   isTrashed,
+  query,
 }: INotesQuery): Promise<Result<Note[]>> {
   const session = (await auth()) as Session;
 
@@ -31,11 +34,12 @@ export async function getNotes({
 
   try {
     const notes: Note[] = await prisma.note.findMany({
-      where: {
+      where: buildNotesWhere({
         userId: session.user.id,
-        isArchived: isArchived,
-        isTrashed: isTrashed,
-      },
+        isArchived,
+        isTrashed,
+        query,
+      }),
       orderBy: { createdAt: 'desc' },
     });
     return {

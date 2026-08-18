@@ -1,0 +1,23 @@
+---
+description: Bootstrap a Dose git worktree before implementing or committing
+alwaysApply: true
+---
+
+# Worktree bootstrap (Dose)
+
+Before implementing, testing, or committing in a worktree:
+
+```sh
+npm install
+cp "$PRIMARY/.env" "$WORKTREE/.env"   # never commit .env
+```
+
+Confirm Husky shim (worktrees often miss `.husky/_`):
+
+```sh
+git config --get core.hooksPath   # expect .husky/_
+test -d .husky/_ && test -x .husky/_/pre-commit && echo "husky shim ok"
+# if missing: npx husky
+```
+
+Stay on this worktree’s branch. New unrelated task → new worktree. Never `--no-verify`.

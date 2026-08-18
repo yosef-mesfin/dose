@@ -60,12 +60,14 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
   };
 
   const handleGenerate = async () => {
-    if (!fileChunks) return;
+    const trimmedPrompt = prompt.trim();
+    if (!trimmedPrompt && !fileChunks) return;
 
     setLoading(true);
+    setError(null);
 
     try {
-      const summary = await generateSummary(fileChunks);
+      const summary = await generateSummary(fileChunks ?? [], trimmedPrompt);
       setResponse(summary);
     } catch (error) {
       console.error('Error Generating Summary: ', error);
@@ -144,8 +146,8 @@ const SummaryModal: React.FC<SummaryModalProps> = ({
                 </div>
               )}
             </div>
-            {filename && (
-              <ShinyButton onClick={handleGenerate}>summarize</ShinyButton>
+            {(filename || prompt) && (
+              <ShinyButton onClick={handleGenerate}>Generate</ShinyButton>
             )}
           </div>
         </div>

@@ -12,7 +12,6 @@ import useAutosave from '@/lib/hooks/use-autosave';
 import Button from '../ui/Button';
 import { RiOpenaiFill } from 'react-icons/ri';
 import { FaRegFileImage } from 'react-icons/fa';
-import { AiOutlineMore } from 'react-icons/ai';
 import { SummaryModal } from '../summary/summary-modal';
 import { useModal } from '@/lib/hooks/use-modal';
 import { Dialog } from '../ui/dialog';
@@ -70,7 +69,7 @@ const EditNoteModal: React.FC<IEditNoteModalProps> = ({
     setCurrentNoteId(noteId);
   }, [noteId, setCurrentNoteId]);
 
-  const { closeModal, openModal, isOpen } = useModal();
+  const { closeModal, openModal } = useModal();
 
   const handleOpenSummaryModal = () => {
     openModal(
@@ -152,13 +151,6 @@ const EditNoteModal: React.FC<IEditNoteModalProps> = ({
             accept=".jpg,.jpeg,.png, .webp"
             ref={fileInputRef}
             onChange={handleFileChange}
-          />
-          <Button
-            variant="icon"
-            className="text-primary/80 hover:text-primary/100"
-            icon={
-              <AiOutlineMore className="size-7 text-primary/50 hover:text-primary/90" />
-            }
           />
         </div>
       </div>

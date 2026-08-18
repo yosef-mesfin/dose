@@ -37,3 +37,6 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+
+# local agent plans (not for the public repo)
+/docs/superpowers/

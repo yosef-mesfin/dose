@@ -1,0 +1,33 @@
+---
+description: Collaboration protocol — explicit approval for pushes, PRs, and external writes
+alwaysApply: true
+---
+
+# Agent collaboration (Dose)
+
+Personal Next.js notes app. Keep GitHub writes conservative.
+
+## Default posture
+
+- **Read freely**: code, docs, git history, GitHub (read), web.
+- **Write locally** when the user asked for the work (features, fixes, plans, rules).
+- **Commit** when the user asks, or when they said commits as you go in this session.
+- **Do not push or open PRs** unless the user clearly asks in this conversation.
+
+## Requires explicit approval each time
+
+| Action | Examples |
+|--------|----------|
+| Git push | `git push`, `-u origin`, force-push |
+| Pull requests | create, edit, merge, close |
+| PR comments | review comments on GitHub |
+
+Prepare locally (branch, commit, PR body draft) and ask before publishing.
+
+## No Cursor attribution
+
+Never add `Co-authored-by: Cursor` or `Made with Cursor`. Before push/`gh pr create`, confirm `~/.cursor/cli-config.json` has both attribution flags `false`.
+
+## After local work
+
+Report: (1) what changed, (2) tests/lint/build, (3) suggested next step — e.g. "Say push when ready".

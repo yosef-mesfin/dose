@@ -30,12 +30,10 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
 
   const saveNote = useCallback(async () => {
     if (!title && !textContent && imageUrls.length === 0) {
-      console.log('No content to save.');
       return;
     }
 
     if (isSavingRef.current) {
-      console.log('Save operation already in progress.');
       return;
     }
 
@@ -51,12 +49,10 @@ function useAutosave<T extends AutoSaveNotes>(value: T, delay: number = 5000) {
             content: textContent,
             imageUrls,
           });
-          console.log('Note updated successfully.');
         }
       } else {
         const newNote = await createNote(title, textContent, imageUrls);
         setCurrentNoteId(newNote.id);
-        console.log('New note created successfully.');
       }
     } catch (error) {
       console.error('Failed to save note:', error);

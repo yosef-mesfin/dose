@@ -73,7 +73,7 @@ export const preprocessFile = async (file: File): Promise<string[]> => {
   const text = await extractText(file);
   const cleanedText = cleanText(text);
 
-  if (cleanText.length > 4000) {
+  if (cleanedText.length > 4000) {
     return chunkedText(cleanedText, 4000);
   }
 

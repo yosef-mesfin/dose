@@ -15,6 +15,7 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
+  trustHost: true,
   providers: [
     Credentials({
       async authorize(credentials) {
@@ -62,16 +63,15 @@ export const {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile }) {
+    ...authConfig.callbacks,
+    async signIn({ account, profile }) {
       if (account?.provider === 'google' && profile) {
+        const email =
+          typeof profile.email === 'string' ? profile.email : undefined;
+        if (!email) return false;
         try {
           const result = await createGoogleUser(profile);
-
-          if (result.type === 'success') {
-            return true;
-          } else {
-            return false;
-          }
+          return result.type === 'success';
         } catch (error) {
           console.error('Error in signIn callback:', error);
           return false;
@@ -79,19 +79,18 @@ export const {
       }
       return true;
     },
-    async session({ session, token }) {
+    async session({ session }) {
+      if (!session.user?.email) return session;
+
       const user = await prisma.user.findUnique({
         where: { email: session.user.email },
       });
 
       if (user) {
-        session = {
-          ...session,
-          user: {
-            ...session.user,
-            id: user?.id,
-            emailVerified: user?.emailVerified,
-          },
+        session.user = {
+          ...session.user,
+          id: user.id,
+          emailVerified: user.emailVerified,
         };
       }
 

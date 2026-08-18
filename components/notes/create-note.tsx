@@ -7,7 +7,6 @@ import { Icons } from '../icons';
 import { FaRegFileImage } from 'react-icons/fa';
 import { TextArea } from '../ui/textfield';
 import { RiOpenaiFill } from 'react-icons/ri';
-import { AiOutlineMore } from 'react-icons/ai';
 import { SummaryModal } from '../summary/summary-modal';
 import useAutosave from '@/lib/hooks/use-autosave';
 import { MdOutlineClose } from 'react-icons/md';
@@ -18,9 +17,7 @@ import { useAutoResize } from '@/lib/hooks/use-autoresize';
 import { ImagePreview } from './note-image-previews';
 import { useModal } from '@/lib/hooks/use-modal';
 
-interface ICreateNoteProps {}
-
-const CreateNote: React.FC<ICreateNoteProps> = () => {
+const CreateNote: React.FC = () => {
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
   const [textContent, setTextContent] = useState('');
@@ -44,13 +41,13 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
     handleClose();
   }, [noteId]);
 
-  const { openModal, closeModal, isOpen } = useModal();
+  const { openModal, closeModal } = useModal();
 
   const handleOpenSummaryModal = () => {
     openModal(
       <SummaryModal
         onClose={closeModal}
-        onAddSummary={() => handleAddSummary}
+        onAddSummary={handleAddSummary}
       />
     );
   };
@@ -93,7 +90,6 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
 
   const handleAddSummary = (summary: string) => {
     setTextContent((prev) => prev + summary);
-    handleClose();
   };
 
   const { isSaving, currentNoteId, setCurrentNoteId, cancelSave } = useAutosave(
@@ -180,7 +176,6 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
               <Icons
                 icon={RiOpenaiFill}
                 className="size-7 text-[#9834aa] group-hover:animate-pulse"
-                onClick={handleClose}
               />
               <span className="text-sm text-primary/50 group-hover:text-primary/90">
                 Assistant
@@ -201,13 +196,6 @@ const CreateNote: React.FC<ICreateNoteProps> = () => {
                 accept=".jpg,.jpeg,.png, .webp"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-              />
-              <Button
-                variant="icon"
-                className="text-primary/80 hover:text-primary/100"
-                icon={
-                  <AiOutlineMore className="size-7 text-primary/50 hover:text-primary/90" />
-                }
               />
               <Button
                 onClick={handleDiscard}

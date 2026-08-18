@@ -2,21 +2,24 @@ import { loadNotes } from '@/lib/notes';
 import NoteCard from './note-card';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { MdOutlineArchive } from 'react-icons/md';
-import { toast } from 'sonner';
 
 interface NoteListsProps {
   isArchived?: boolean;
   isTrashed?: boolean;
+  query?: string;
 }
 
 export default async function NoteLists({
   isArchived,
   isTrashed,
+  query,
 }: NoteListsProps) {
-  const noteResult = await loadNotes({ isArchived, isTrashed });
+  const noteResult = await loadNotes({ isArchived, isTrashed, query });
 
   if (noteResult.type === 'error') {
-    return toast.error(noteResult.resultCode);
+    return (
+      <p className="text-center text-red-500 mt-[20%]">Failed to load notes</p>
+    );
   }
 
   const notes = noteResult.data;
