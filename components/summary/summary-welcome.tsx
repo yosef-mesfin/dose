@@ -11,7 +11,7 @@ const SummaryWelcome: React.FC = () => {
         }}
       >
         <p>
-          upload{' '}
+          type a prompt and/or upload a{' '}
           <code className="px-2 bg-gray-100 dark:bg-gray-800 rounded">
             .srt
           </code>{' '}
@@ -19,7 +19,7 @@ const SummaryWelcome: React.FC = () => {
           <code className="px-2 bg-gray-100 dark:bg-gray-800 rounded">
             .txt
           </code>{' '}
-          file to generate a summary
+          file
         </p>
       </div>
     </div>
