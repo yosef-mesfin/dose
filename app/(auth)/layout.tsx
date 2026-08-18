@@ -1,6 +1,7 @@
 import Button from '@/components/ui/Button';
 import { FcGoogle } from 'react-icons/fc';
-import { auth, signIn } from '@/lib/auth';
+import { auth } from '@/lib/auth';
+import { signInWithGoogle } from '@/lib/auth-actions';
 import { Session } from '@/lib/types/types';
 import { redirect } from 'next/navigation';
 
@@ -28,13 +29,7 @@ export default async function AuthLayout({
             <div className="w-1/3 border-b border-text"></div>
           </div>
           <div className="mt-6 w-[335px] flex justify-center">
-            <form
-              action={async () => {
-                'use server';
-                await signIn('google');
-                redirect('/notes');
-              }}
-            >
+            <form action={signInWithGoogle}>
               <Button
                 size="lg"
                 iconPosition="before"

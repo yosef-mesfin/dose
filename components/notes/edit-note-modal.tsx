@@ -70,7 +70,7 @@ const EditNoteModal: React.FC<IEditNoteModalProps> = ({
     setCurrentNoteId(noteId);
   }, [noteId, setCurrentNoteId]);
 
-  const { closeModal, openModal, isOpen } = useModal();
+  const { closeModal, openModal } = useModal();
 
   const handleOpenSummaryModal = () => {
     openModal(

@@ -4,7 +4,7 @@ import SignupForm from '@/components/signup-form';
 import { WelcomeSection } from '@/components/welcome-section';
 import Button from '@/components/ui/Button';
 import { FcGoogle } from 'react-icons/fc';
-import Link from 'next/link';
+import { signInWithGoogle } from '@/lib/auth-actions';
 
 export default function Landing() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,7 +31,7 @@ export default function Landing() {
             <div className="w-1/3 border-b border-text"></div>
           </div>
           <div className="mt-6 w-[335px] flex justify-center">
-            <Link href="/notes" className="w-full" prefetch>
+            <form action={signInWithGoogle} className="w-full">
               <Button
                 size="lg"
                 iconPosition="before"
@@ -39,7 +39,7 @@ export default function Landing() {
                 label="Continue with Google"
                 className="bg-primary/10 border w-full hover:bg-primary/20"
               />
-            </Link>
+            </form>
           </div>
         </div>
       </div>

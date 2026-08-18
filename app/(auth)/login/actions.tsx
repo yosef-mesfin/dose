@@ -33,7 +33,7 @@ export async function authenticate(
       })
       .safeParse({ email, password });
 
-    if (parsedCredentials) {
+    if (parsedCredentials.success) {
       await signIn('credentials', {
         email,
         password,

@@ -21,7 +21,7 @@ describe('Button Component', () => {
     const buttonElement = screen.getByRole('button', { name: /Solid Button/i });
 
     expect(buttonElement).toBeInTheDocument();
-    expect(buttonElement).toHaveClass('bg-blue-500');
+    expect(buttonElement).toHaveClass('bg-primary');
   });
 
   it('Renders the button with custom sizes', () => {

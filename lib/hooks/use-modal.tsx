@@ -36,11 +36,6 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     setModalStack((prev) => prev.slice(0, -1));
   }, []);
 
-  // Close all modals
-  const closeAllModals = useCallback(() => {
-    setModalStack([]);
-  }, []);
-
   //Handle Esc to close the topmost modal
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
