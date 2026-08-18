@@ -1,7 +1,7 @@
 import { useEffect, RefObject } from 'react';
 
 export const useAutoResize = (
-  ref: RefObject<HTMLTextAreaElement>,
+  ref: RefObject<HTMLTextAreaElement | null>,
   text: string
 ) => {
   useEffect(() => {
