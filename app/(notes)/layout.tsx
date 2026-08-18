@@ -25,7 +25,9 @@ export default async function NoteLayout({ children }: INoteLayoutProps) {
         <SidebarDesktop />
         <div className="flex-1 flex flex-col dark:bg-zinc-950">
           <div className="py-3 px-2 flex items-center justify-between">
-            <Search />
+            <Suspense fallback={null}>
+              <Search />
+            </Suspense>
             <form
               action={async () => {
                 'use server';

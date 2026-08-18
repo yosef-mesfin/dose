@@ -6,13 +6,15 @@ import { MdOutlineArchive } from 'react-icons/md';
 interface NoteListsProps {
   isArchived?: boolean;
   isTrashed?: boolean;
+  query?: string;
 }
 
 export default async function NoteLists({
   isArchived,
   isTrashed,
+  query,
 }: NoteListsProps) {
-  const noteResult = await loadNotes({ isArchived, isTrashed });
+  const noteResult = await loadNotes({ isArchived, isTrashed, query });
 
   if (noteResult.type === 'error') {
     return (

@@ -1,10 +1,27 @@
 'use client';
 import React, { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useDebounceCallback } from 'usehooks-ts';
 import { Input } from './ui/input';
 import { FaSearch } from 'react-icons/fa';
 
 export const Search: React.FC = () => {
-  const [query, setQuery] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('q') ?? '');
+
+  const applyQuery = useDebounceCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const trimmed = value.trim();
+    if (trimmed) {
+      params.set('q', trimmed);
+    } else {
+      params.delete('q');
+    }
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname);
+  }, 300);
 
   return (
     <div className="relative w-[40%]">
@@ -13,7 +30,10 @@ export const Search: React.FC = () => {
       </span>
       <Input
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          applyQuery(e.target.value);
+        }}
         placeholder="Search..."
         className="pl-10 h-12 bg-primary/30"
       />
