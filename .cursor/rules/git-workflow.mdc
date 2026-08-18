@@ -1,0 +1,35 @@
+---
+description: Branching, hooks, and verification for the Dose repo
+alwaysApply: true
+---
+
+# Git workflow (Dose)
+
+Husky: `.husky/pre-commit` (`npm run lint`), `.husky/commit-msg` (commitlint), `.husky/pre-push` (`npm run build`). Never bypass hooks (`--no-verify`, `HUSKY=0`).
+
+## Non-negotiable
+
+1. Branch from `main`; PRs target `main`.
+2. Keep scope narrow — one feature = one branch.
+3. Never commit `.env` or secrets. `.env.example` is key names only.
+4. Before push/PR, run this suite in-session and confirm exit 0:
+
+```sh
+npm test -- --watchAll=false
+npm run lint
+npm run build
+```
+
+Husky pre-push (build) is not a substitute for tests + lint.
+
+## Branching
+
+```sh
+git checkout main && git pull
+git checkout -b feat/descriptive-name
+```
+
+## Staging
+
+- Stage only task-relevant files. Avoid `git add .` unless the tree is clean of extras.
+- Do not commit `.env` (even if it was previously tracked).

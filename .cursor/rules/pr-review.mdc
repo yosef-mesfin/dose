@@ -1,0 +1,14 @@
+---
+description: Review Dose PRs locally; do not post to GitHub unless asked
+alwaysApply: true
+---
+
+# Pull request review (Dose)
+
+Default: local analysis only. Do not comment, approve, or request changes on GitHub unless the user asks to publish.
+
+1. `gh pr view <n> --json title,body,baseRefName,headRefName,files,commits`
+2. `gh pr diff <n>`
+3. `gh pr checks <n>` if available
+
+Deliver: Summary, Strengths, Issues (blocker / suggestion / nit), Test plan gaps, Verdict (advisory).

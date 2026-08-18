@@ -1,0 +1,25 @@
+---
+description: How to push Dose branches when the user explicitly asks
+alwaysApply: true
+---
+
+# Git push (Dose)
+
+Push **only** when the user asks.
+
+## Required in this session (exit 0)
+
+```sh
+npm test -- --watchAll=false
+npm run lint
+npm run build
+```
+
+Then: not behind `main`; attribution flags false; never `--no-verify`.
+
+```sh
+git push -u origin HEAD   # first push
+git push                  # later
+```
+
+Report the branch. Do not open a PR unless also asked.

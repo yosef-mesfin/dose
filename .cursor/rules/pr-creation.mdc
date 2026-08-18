@@ -1,0 +1,27 @@
+---
+description: How to create Dose pull requests when the user explicitly asks
+alwaysApply: true
+---
+
+# Pull request creation (Dose)
+
+Create or edit PRs **only** when asked.
+
+Before creating: `git status`, `git diff`, `git log main...HEAD`, `git diff main...HEAD`, plus tests/lint/build (see `git-push`).
+
+- **Base**: `main`
+- **Tool**: `gh pr create`
+- Strip `Made with Cursor` if injected
+
+```sh
+gh pr create --title "concise title" --body "$(cat <<'EOF'
+## Summary
+- ...
+
+## Test plan
+- [ ] ...
+EOF
+)"
+```
+
+Return the PR URL. Do not post review comments unless asked.
