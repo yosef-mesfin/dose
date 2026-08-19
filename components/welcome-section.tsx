@@ -10,7 +10,7 @@ import { FaRegFileImage } from 'react-icons/fa';
 import Image from 'next/image';
 
 interface IWelcomeSectionProps {
-  conainerRef: React.RefObject<HTMLDivElement>;
+  conainerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const WelcomeSection: React.FC<IWelcomeSectionProps> = ({
